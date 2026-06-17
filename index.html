@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Executive Dashboard LC Global Industries Inc.</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+  <title>Executive Dashboard — LC Global Industries Inc.</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
   <style>
     :root { color-scheme: light; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,129 +12,168 @@
 
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: white; padding: 18px 24px;
+      color: white; padding: 16px 24px;
       display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
     .brand-icon {
-      width: 44px; height: 44px; background: #FF9900;
-      border-radius: 10px; display: flex; align-items: center;
-      justify-content: center; font-weight: 900; font-size: 16px;
-      color: #0f172a; flex-shrink: 0;
+      width: 40px; height: 40px; background: #FF9900; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: #0f172a; flex-shrink: 0;
     }
-    .brand h1 { font-size: 16px; font-weight: 700; }
+    .brand h1 { font-size: 15px; font-weight: 700; }
     .brand p  { font-size: 11px; color: #94a3b8; margin-top: 2px; }
     .hdr-right { text-align: right; }
-    .hdr-date  { font-size: 14px; font-weight: 700; color: #FF9900; }
-    .hdr-tag   { font-size: 11px; color: #64748b; margin-top: 3px; }
+    .hdr-date  { font-size: 13px; font-weight: 700; color: #FF9900; }
+    .hdr-tag   { font-size: 11px; color: #64748b; margin-top: 2px; }
     .live-dot  {
       display: inline-block; width: 7px; height: 7px;
-      background: #22c55e; border-radius: 50%; margin-right: 5px;
+      background: #22c55e; border-radius: 50%; margin-right: 4px;
       animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
 
-    main { padding: 20px; max-width: 960px; margin: 0 auto; }
+    /* FILTER BAR */
+    .filter-bar {
+      background: white; border-bottom: 1px solid #e2e8f0;
+      padding: 12px 24px; display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .8px; }
+    .period-tabs { display: flex; gap: 6px; }
+    .tab-btn {
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      border: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; cursor: pointer;
+      transition: all .15s;
+    }
+    .tab-btn:hover { border-color: #FF9900; color: #FF9900; }
+    .tab-btn.active { background: #FF9900; border-color: #FF9900; color: #0f172a; }
+    .date-range { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .date-range label { font-size: 11px; color: #64748b; font-weight: 600; }
+    .date-input {
+      padding: 5px 10px; border: 1px solid #e2e8f0; border-radius: 6px;
+      font-size: 12px; color: #334155; background: #f8fafc; cursor: pointer;
+    }
+    .date-input:focus { outline: none; border-color: #FF9900; }
+    .apply-btn {
+      padding: 6px 12px; background: #0f172a; color: white; border: none;
+      border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .apply-btn:hover { background: #1e293b; }
+
+    main { padding: 20px; max-width: 1000px; margin: 0 auto; }
 
     .section-label {
       font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.2px; color: #94a3b8; margin: 22px 0 10px;
+      letter-spacing: 1.2px; color: #94a3b8; margin: 20px 0 10px;
     }
 
-    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    /* KPI GRID */
+    .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
     .kpi-card {
-      background: white; border-radius: 12px; padding: 16px 18px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-      border-left: 4px solid transparent;
+      background: white; border-radius: 10px; padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid transparent;
     }
     .kpi-card.c-blue   { border-left-color: #3b82f6; }
     .kpi-card.c-orange { border-left-color: #FF9900; }
     .kpi-card.c-green  { border-left-color: #22c55e; }
     .kpi-card.c-purple { border-left-color: #8b5cf6; }
-    .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #94a3b8; }
-    .kpi-value { font-size: 22px; font-weight: 800; color: #0f172a; margin-top: 6px; line-height: 1.1; }
-    .kpi-sub   { font-size: 11px; color: #94a3b8; margin-top: 5px; }
-    .val-green { color: #16a34a; }
-    .val-orange{ color: #b45309; }
+    .kpi-card.c-teal   { border-left-color: #14b8a6; }
+    .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #94a3b8; }
+    .kpi-value { font-size: 20px; font-weight: 800; color: #0f172a; margin-top: 6px; line-height: 1.1; }
+    .kpi-sub   { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+    .val-green  { color: #16a34a; }
+    .val-orange { color: #b45309; }
+    .val-red    { color: #dc2626; }
 
-    .mtd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .mtd-card {
-      background: #eff6ff; border-radius: 10px; padding: 14px 16px;
-      border: 1px solid #bfdbfe;
+    /* CHARTS GRID */
+    .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+    .chart-card {
+      background: white; border-radius: 10px; padding: 16px 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
     }
-    .mtd-label { font-size: 10px; font-weight: 700; color: #3b82f6; text-transform: uppercase; }
-    .mtd-value { font-size: 20px; font-weight: 800; color: #1e3a5f; margin-top: 5px; }
+    .chart-title { font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 3px; }
+    .chart-sub   { font-size: 10px; color: #94a3b8; margin-bottom: 12px; }
+    .chart-container { height: 180px; position: relative; }
 
-    .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    /* MONTHLY COMPARE */
+    .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .month-card {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      border-top: 3px solid transparent;
+    }
+    .month-card.april { border-top-color: #8b5cf6; }
+    .month-card.may   { border-top-color: #3b82f6; }
+    .month-card.june  { border-top-color: #FF9900; }
+    .month-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #64748b; }
+    .month-rev  { font-size: 22px; font-weight: 800; color: #0f172a; margin: 6px 0 2px; }
+    .month-stats { font-size: 11px; color: #94a3b8; line-height: 1.7; }
+    .month-stats strong { color: #334155; }
+    .no-data-badge {
+      display: inline-block; padding: 2px 8px; background: #f1f5f9; color: #94a3b8;
+      border-radius: 999px; font-size: 10px; font-weight: 700; margin-top: 4px;
+    }
+
+    /* TABLE */
+    .table-card {
+      background: white; border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06); overflow: hidden;
+    }
+    .table-header {
+      padding: 14px 16px; border-bottom: 1px solid #f1f5f9;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .table-title { font-size: 13px; font-weight: 700; color: #0f172a; }
+    .table-count { font-size: 11px; color: #94a3b8; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th {
+      padding: 9px 14px; text-align: left; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px; color: #94a3b8;
+      background: #f8fafc; border-bottom: 1px solid #e2e8f0; white-space: nowrap;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #fafbfc; }
+    .pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 10px; font-weight: 700;
+    }
+    .pill-green  { background: #dcfce7; color: #15803d; }
+    .pill-orange { background: #fef3c7; color: #b45309; }
+    .pill-red    { background: #fee2e2; color: #b91c1c; }
+    .pill-blue   { background: #dbeafe; color: #1d4ed8; }
+    .best-row td { background: #fffbeb !important; }
+    .best-row td:first-child::before { content: '⭐ '; }
+
+    /* CAPITAL */
+    .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
     .cap-card {
-      background: #f0fdfa; border-radius: 10px; padding: 14px 16px;
+      background: #f0fdf4; border-radius: 10px; padding: 14px 16px;
       border: 1px solid #99f6e4;
     }
     .cap-label { font-size: 10px; font-weight: 700; color: #0d9488; text-transform: uppercase; }
     .cap-value { font-size: 17px; font-weight: 800; color: #134e4a; margin-top: 5px; }
-    .cap-sub   { font-size: 11px; color: #64748b; margin-top: 4px; }
-    .liq-badge {
-      display: inline-block; padding: 3px 10px; border-radius: 9999px;
-      font-size: 11px; font-weight: 700; margin-top: 6px;
-    }
-    .liq-warn { background: #fef3c7; color: #b45309; }
+    .cap-sub   { font-size: 11px; color: #64748b; margin-top: 3px; }
+    .liq-warn  { background: #fef3c7; color: #b45309; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; margin-top: 6px; display: inline-block; }
 
-    .inv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .inv-card {
-      background: white; border-radius: 10px; padding: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.07); text-align: center;
-    }
-    .inv-num   { font-size: 30px; font-weight: 900; color: #1e293b; }
-    .inv-label { font-size: 11px; color: #94a3b8; margin-top: 4px; font-weight: 600; }
-
-    .chart-card {
-      background: white; border-radius: 12px; padding: 18px 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-    }
-    .chart-container { height: 200px; position: relative; }
-
-    .table-card {
-      background: white; border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.07); overflow: hidden;
-    }
-    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    thead tr { background: #f8fafc; }
-    th {
-      padding: 10px 14px; text-align: left; font-size: 10px;
-      font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-      color: #64748b; border-bottom: 1px solid #e2e8f0; white-space: nowrap;
-    }
-    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:first-child td { background: #f0fdf4; font-weight: 600; }
-    .pill {
-      display: inline-block; padding: 2px 9px; border-radius: 9999px;
-      font-size: 11px; font-weight: 700;
-    }
-    .pill-green  { background: #dcfce7; color: #15803d; }
-    .pill-orange { background: #fef3c7; color: #b45309; }
-
-    .alert-card {
-      background: #fefce8; border: 1px solid #fde68a; border-radius: 10px;
-      padding: 12px 16px; font-size: 12px; color: #78350f;
-    }
-    .alert-card strong { color: #92400e; }
-
-    .updated-badge {
-      display: inline-block; background: #dcfce7; color: #15803d;
-      font-size: 10px; font-weight: 700; padding: 2px 8px;
-      border-radius: 9999px; margin-left: 8px; vertical-align: middle;
-    }
+    /* NO DATA */
+    .no-data { text-align: center; padding: 32px; color: #94a3b8; font-size: 13px; }
+    .no-data-icon { font-size: 32px; margin-bottom: 8px; }
 
     footer {
-      text-align: center; padding: 18px; font-size: 11px; color: #cbd5e1;
+      text-align: center; padding: 16px; font-size: 11px; color: #cbd5e1;
       border-top: 1px solid #e2e8f0; margin-top: 10px; background: white;
     }
 
-    @media (max-width: 680px) {
-      .kpi-grid  { grid-template-columns: repeat(2, 1fr); }
-      .cap-grid  { grid-template-columns: repeat(2, 1fr); }
-      .mtd-grid  { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      .kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid{ grid-template-columns: 1fr; }
+      .month-grid { grid-template-columns: 1fr; }
+      .cap-grid   { grid-template-columns: repeat(2, 1fr); }
+      .date-range { display: none; }
     }
   </style>
 </head>
@@ -145,63 +184,140 @@
     <div class="brand-icon">LC</div>
     <div>
       <h1>Executive Dashboard — LC Global Industries Inc.</h1>
-      <p>Amazon.ca Operations · Actualizado por rutina 8AM</p>
+      <p>Amazon.ca Operations · Actualizado por Rutina 8AM</p>
     </div>
   </div>
   <div class="hdr-right">
-    <div class="hdr-date">Tuesday 2026-06-16 <span class="updated-badge">LIVE</span></div>
+    <div class="hdr-date">2026-06-16 <span style="font-size:10px;background:#dcfce7;color:#15803d;padding:2px 7px;border-radius:999px;font-weight:700;margin-left:4px;">LIVE</span></div>
     <div class="hdr-tag"><span class="live-dot"></span>Datos verificados · Google Sheet consolidado</div>
   </div>
 </header>
 
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Período:</span>
+  <div class="period-tabs">
+    <button class="tab-btn" onclick="setPreset('april')">Abril 2026</button>
+    <button class="tab-btn" onclick="setPreset('may')">Mayo 2026</button>
+    <button class="tab-btn" onclick="setPreset('june')">Junio 2026</button>
+    <button class="tab-btn active" onclick="setPreset('all')">Todo</button>
+  </div>
+  <div class="date-range">
+    <label>Desde:</label>
+    <input type="date" class="date-input" id="dateFrom" value="2026-04-01">
+    <label>Hasta:</label>
+    <input type="date" class="date-input" id="dateTo" value="2026-06-16">
+    <button class="apply-btn" onclick="applyCustomRange()">Aplicar</button>
+  </div>
+</div>
+
 <main>
 
-  <div class="section-label">📦 Hoy — 2026-06-16</div>
+  <div class="section-label" id="period-label">📊 Resumen del Período — Todo</div>
+
+  <!-- KPIs -->
   <div class="kpi-grid">
     <div class="kpi-card c-blue">
       <div class="kpi-label">Órdenes</div>
-      <div class="kpi-value">6</div>
-      <div class="kpi-sub">Enviadas: 4 &nbsp;·&nbsp; Pendientes: 2</div>
+      <div class="kpi-value" id="kpi-orders">—</div>
+      <div class="kpi-sub" id="kpi-orders-sub">—</div>
     </div>
     <div class="kpi-card c-orange">
       <div class="kpi-label">Revenue Bruto</div>
-      <div class="kpi-value" style="font-size:19px;">$186.00 CAD</div>
-      <div class="kpi-sub">Fees Amazon: $55.40 CAD</div>
+      <div class="kpi-value" id="kpi-revenue">—</div>
+      <div class="kpi-sub" id="kpi-revenue-sub">—</div>
     </div>
     <div class="kpi-card c-green">
       <div class="kpi-label">Resultado Neto</div>
-      <div class="kpi-value val-green" style="font-size:19px;">$129.60 CAD</div>
-      <div class="kpi-sub">Tasa fees: 29.78%</div>
+      <div class="kpi-value" id="kpi-net">—</div>
+      <div class="kpi-sub" id="kpi-net-sub">—</div>
     </div>
     <div class="kpi-card c-purple">
-      <div class="kpi-label">Ingreso Neto Ventas</div>
-      <div class="kpi-value" style="font-size:19px;">$130.60 CAD</div>
-      <div class="kpi-sub">Costos op.: $1.00 CAD</div>
+      <div class="kpi-label">Ticket Promedio</div>
+      <div class="kpi-value" id="kpi-ticket">—</div>
+      <div class="kpi-sub" id="kpi-ticket-sub">—</div>
+    </div>
+    <div class="kpi-card c-teal">
+      <div class="kpi-label">Fee Rate Prom.</div>
+      <div class="kpi-value" id="kpi-feerate">—</div>
+      <div class="kpi-sub" id="kpi-feerate-sub">—</div>
     </div>
   </div>
 
-  <div class="section-label">📅 Mes a la Fecha — Junio 2026</div>
-  <div class="mtd-grid">
-    <div class="mtd-card">
-      <div class="mtd-label">Órdenes MTD</div>
-      <div class="mtd-value">21</div>
+  <!-- CHARTS -->
+  <div class="section-label">📈 Revenue vs. Resultado Neto</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Revenue vs. Neto por Día</div>
+      <div class="chart-sub" id="chart-sub-1">Período seleccionado</div>
+      <div class="chart-container"><canvas id="barChart"></canvas></div>
     </div>
-    <div class="mtd-card">
-      <div class="mtd-label">Revenue Bruto MTD</div>
-      <div class="mtd-value" style="font-size:17px;">$818.03 CAD</div>
-    </div>
-    <div class="mtd-card">
-      <div class="mtd-label">Resultado Neto MTD</div>
-      <div class="mtd-value" style="font-size:17px;">$558.38 CAD</div>
+    <div class="chart-card">
+      <div class="chart-title">Composición de Ingresos</div>
+      <div class="chart-sub">Fees Amazon vs. Neto</div>
+      <div class="chart-container"><canvas id="donutChart"></canvas></div>
     </div>
   </div>
 
-  <div class="section-label">💰 Capital &amp; Liquidez</div>
+  <!-- MONTHLY COMPARE -->
+  <div class="section-label">📅 Resumen por Mes</div>
+  <div class="month-grid">
+    <div class="month-card april">
+      <div class="month-name">🟣 Abril 2026</div>
+      <div class="month-rev">$0.00 CAD</div>
+      <div class="month-stats">
+        <strong>0</strong> órdenes · Sin ventas<br>
+        Fase startup (compras & setup)
+      </div>
+      <div class="no-data-badge">Etapa Pre-Lanzamiento</div>
+    </div>
+    <div class="month-card may">
+      <div class="month-name">🔵 Mayo 2026</div>
+      <div class="month-rev">$82.57 CAD</div>
+      <div class="month-stats">
+        <strong>3</strong> órdenes (<strong>2</strong> enviadas · <strong>1</strong> cancelada)<br>
+        Fees: <strong>$21.74</strong> · Neto: <strong>$46.93</strong><br>
+        Fee rate: <strong>26.3%</strong> · Ticket: <strong>$41.29</strong>
+      </div>
+    </div>
+    <div class="month-card june">
+      <div class="month-name">🟠 Junio 2026 (al 16)</div>
+      <div class="month-rev">$818.03 CAD</div>
+      <div class="month-stats">
+        <strong>21</strong> órdenes enviadas<br>
+        Fees: <strong>$233.67</strong> · Neto: <strong>$578.68</strong><br>
+        Fee rate: <strong>28.6%</strong> · Ticket: <strong>$38.95</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-label">🗓️ Historial Día a Día</div>
+  <div class="table-card">
+    <div class="table-header">
+      <div class="table-title">Detalle de Operaciones</div>
+      <div class="table-count" id="table-count">0 días</div>
+    </div>
+    <div id="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Día</th><th>Mes</th><th>Órdenes</th>
+            <th>Revenue</th><th>Fees</th><th>Neto</th><th>Fee %</th><th>MTD Rev.</th><th>Inv. Disp.</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CAPITAL -->
+  <div class="section-label">💰 Capital &amp; Liquidez (Snapshot 2026-06-16)</div>
   <div class="cap-grid">
     <div class="cap-card">
       <div class="cap-label">Capital Total</div>
       <div class="cap-value">$1,163.67 CAD</div>
-      <div class="cap-sub">Base total de capital</div>
+      <div class="cap-sub">Jermain + Fernando</div>
     </div>
     <div class="cap-card">
       <div class="cap-label">Comprometido</div>
@@ -214,134 +330,274 @@
       <div class="cap-sub">Liquidez: 0.6%</div>
     </div>
     <div class="cap-card">
-      <div class="cap-label">Estado Liquidez</div>
-      <div class="cap-value" style="font-size:13px; margin-top:10px;">
-        <span class="liq-badge liq-warn">Liquidez Reducida</span>
-      </div>
-      <div class="cap-sub">Variación: $0.00</div>
+      <div class="cap-label">Estado</div>
+      <div style="margin-top:10px;"><span class="liq-warn">⚠️ Liquidez Reducida</span></div>
+      <div class="cap-sub" style="margin-top:6px;">Requiere reposición urgente</div>
     </div>
-  </div>
-
-  <div class="section-label">🏭 Inventario FBA</div>
-  <div class="inv-grid">
-    <div class="inv-card">
-      <div class="inv-num">4</div>
-      <div class="inv-label">SKUs Activos</div>
-    </div>
-    <div class="inv-card">
-      <div class="inv-num">6</div>
-      <div class="inv-label">Unidades Disponibles</div>
-    </div>
-    <div class="inv-card">
-      <div class="inv-num">2</div>
-      <div class="inv-label">Unidades Reservadas</div>
-    </div>
-  </div>
-
-  <div class="section-label">📈 Revenue vs. Resultado Neto — Junio 2026</div>
-  <div class="chart-card">
-    <div class="chart-container">
-      <canvas id="rev-chart"></canvas>
-    </div>
-  </div>
-
-  <div class="section-label">🗃️ Historial Junio</div>
-  <div class="table-card">
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th><th>Día</th><th>Órdenes</th>
-          <th>Revenue</th><th>Fees</th><th>Neto</th>
-          <th>Fee Rate</th><th>MTD Qunio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>2026-06-16</strong></td>
-          <td>Tuesday</td><td>6</td>
-          <td>$186.00</td><td>$55.40</td>
-          <td><span class="pill pill-green">$129.60</span></td>
-          <td>29.78%</td><td>$818.03</td>
-        </tr>
-        <tr>
-          <td>2026-06-15</td><td>Monday</td><td>4</td>
-          <td>$101.63</td><td>$28.66</td>
-          <td><span class="pill pill-green">$47.24</span></td>
-          <td>28.20%</td><td>$632.03</td>
-        </tr>
-        <tr>
-          <td>2026-06-14</td><td>Sunday</td><td>3</td>
-          <td>$163.56</td><td>$46.12</td>
-          <td><span class="pill pill-green">$116.44</span></td>
-          <td>28.20%</td><td>$530.40</td>
-        </tr>
-        <tr>
-          <td>2026-06-13</td><td>Saturday</td><td>4</td>
-          <td>$196.71</td><td>$55.51</td>
-          <td><span class="pill pill-green">$140.20</span></td>
-          <td>28.22%</td><td>$366.84</td>
-        </tr>
-        <tr>
-          <td>2026-06-12</td><td>Friday</td><td>1</td>
-          <td>$24.00</td><td>$6.77</td>
-          <td><span class="pill pill-green">$16.23</span></td>
-          <td>28.20%</td><td>$170.13</td>
-        </tr>
-        <tr>
-          <td>2026-06-10</td><td>Wednesday</td><td>2</td>
-          <td>$70.19</td><td>$19.79</td>
-          <td><span class="pill pill-green">$49.40</span></td>
-          <td>28.20%</td><td>$146.13</td>
-        </tr>
-        <tr>
-          <td>2026-06-09</td><td>Tuesday</td><td>2</td>
-          <td>$75.94</td><td>$21.42</td>
-          <td><span class="pill pill-green">$53.52</span></td>
-          <td>28.20%</td><td>$75.94</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section-label">⚠️ Alertas</div>
-  <div class="alert-card">
-    <strong>Inventario crítico:</strong> 7 de 9 SKUs sin stock FBA disponible.
-    Solo Dulce de Leche (77-SMZ3-OXvC,#u) y Yerba Mate Cruz de Malta (QW-QWZ0-LSBG,#u) tienen unidades disponibles.
-    Requiere reposición urgente.<br><br>
-    <em>Fees del día son estimados — eventos financieros Amazon tienen lag de 24h. Se confirman en el reporte de mañana.</em>
   </div>
 
 </main>
 
 <footer>
-  Executive Dashboard · LC Global Industries Inc. · Amazon.ca ·
-  Última actualización: Rutina 8AM 2026-06-16
+  Executive Dashboard · LC Global Industries Inc. · Amazon.ca · Rutina 8AM 2026-06-16
 </footer>
 
 <script>
-(function() {
-  var labels  = ['Jun-09','Jun-10','Jun-12','Jun-13','Jun-14','Jun-15','Jun-16'];
-  var revenue = [75.94, 70.19, 24.00, 196.71, 163.56, 101.63, 186.00];
-  var neto    = [53.52, 49.40, 16.23, 140.20, 116.44, 47.24, 129.60];
-  var ctx = document.getElementById('rev-chart').getContext('2d');
-  new Chart(ctx, {
+// ──────────────────────────────────────────────
+// DATA — May & June 2026
+// ──────────────────────────────────────────────
+const ALL_DATA = [
+  // MAY
+  { date:'2026-05-19', dow:'Martes',    month:'Mayo', mo:5,
+    orders:1, shipped:1, pending:0, cancelled:0,
+    revenue:52.02,  fees:17.16, net:27.91, feeRate:33.0,
+    mtdOrders:1,  mtdRevenue:52.02,  mtdNet:27.91,
+    invAvail:54,  invSKUs:4, notes:'WR-7EP2-333F Knorr Caldo FBA' },
+  { date:'2026-05-25', dow:'Domingo',   month:'Mayo', mo:5,
+    orders:2, shipped:1, pending:0, cancelled:1,
+    revenue:30.55,  fees:4.58,  net:19.02, feeRate:15.0,
+    mtdOrders:3,  mtdRevenue:82.57,  mtdNet:46.93,
+    invAvail:53,  invSKUs:4, notes:'San Ignacio FBM $30.55 · 1 cancelada' },
+  // JUNE
+  { date:'2026-06-09', dow:'Martes',    month:'Junio', mo:6,
+    orders:2, shipped:2, pending:0, cancelled:0,
+    revenue:75.94,  fees:21.41, net:53.73, feeRate:28.2,
+    mtdOrders:2,  mtdRevenue:75.94,  mtdNet:53.73,
+    invAvail:52,  invSKUs:4, notes:'2 órdenes FBA. Fees estimados' },
+  { date:'2026-06-10', dow:'Miércoles', month:'Junio', mo:6,
+    orders:2, shipped:2, pending:0, cancelled:0,
+    revenue:70.19,  fees:19.80, net:49.59, feeRate:28.2,
+    mtdOrders:4,  mtdRevenue:146.13, mtdNet:103.32,
+    invAvail:50,  invSKUs:4, notes:'2 órdenes FBA. Fees estimados' },
+  { date:'2026-06-12', dow:'Viernes',   month:'Junio', mo:6,
+    orders:1, shipped:1, pending:0, cancelled:0,
+    revenue:24.00,  fees:6.77,  net:16.43, feeRate:28.2,
+    mtdOrders:5,  mtdRevenue:170.13, mtdNet:119.75,
+    invAvail:49,  invSKUs:4, notes:'San Ignacio $24.00 FBA' },
+  { date:'2026-06-13', dow:'Sábado',    month:'Junio', mo:6,
+    orders:4, shipped:4, pending:0, cancelled:0,
+    revenue:196.71, fees:55.51, net:140.40, feeRate:28.2,
+    mtdOrders:9,  mtdRevenue:366.84, mtdNet:260.15,
+    invAvail:54,  invSKUs:4, notes:'702-8454548+701-4080737 PEI+London + Calgary+N.Vancouver. Primera rutina.' },
+  { date:'2026-06-14', dow:'Domingo',   month:'Junio', mo:6,
+    orders:3, shipped:3, pending:0, cancelled:0,
+    revenue:163.56, fees:46.12, net:116.64, feeRate:28.2,
+    mtdOrders:12, mtdRevenue:530.40, mtdNet:376.79,
+    invAvail:12,  invSKUs:4, notes:'701-2693625+701-7554192+701-3942601 Cornwall+Edmonton+QC. 20u Knorr inbound.' },
+  { date:'2026-06-15', dow:'Lunes',     month:'Junio', mo:6,
+    orders:4, shipped:4, pending:0, cancelled:0,
+    revenue:101.63, fees:28.66, net:72.17, feeRate:28.2,
+    mtdOrders:16, mtdRevenue:632.03, mtdNet:448.96,
+    invAvail:8,   invSKUs:4, notes:'Cruz Malta + Rosamonte bajo stock. 4 órdenes FBA Kitchener/Hamilton/Toronto/NB.' },
+  { date:'2026-06-16', dow:'Martes',    month:'Junio', mo:6,
+    orders:5, shipped:3, pending:2, cancelled:0,
+    revenue:186.00, fees:55.40, net:129.60, feeRate:29.78,
+    mtdOrders:21, mtdRevenue:818.03, mtdNet:578.56,
+    invAvail:6,   invSKUs:4, notes:'5 órdenes (3 shipped/2 pending Jun 17). SP-API confirmado. Fees estimados lag 24h.' },
+];
+
+// ──────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────
+let filtered = [...ALL_DATA];
+let barChartInst = null;
+let donutChartInst = null;
+let currentPreset = 'all';
+
+// ──────────────────────────────────────────────
+// FILTER LOGIC
+// ──────────────────────────────────────────────
+function filterData(from, to) {
+  filtered = ALL_DATA.filter(d => d.date >= from && d.date <= to);
+}
+
+function setPreset(preset) {
+  currentPreset = preset;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  let from, to, label;
+  switch(preset) {
+    case 'april':
+      from = '2026-04-01'; to = '2026-04-30';
+      label = 'Abril 2026 — Sin datos de ventas (fase startup)';
+      break;
+    case 'may':
+      from = '2026-05-01'; to = '2026-05-31';
+      label = 'Mayo 2026';
+      break;
+    case 'june':
+      from = '2026-06-01'; to = '2026-06-30';
+      label = 'Junio 2026';
+      break;
+    default:
+      from = '2026-04-01'; to = '2026-06-30';
+      label = 'Todo (Abril–Junio 2026)';
+  }
+  document.getElementById('dateFrom').value = from;
+  document.getElementById('dateTo').value   = to;
+  document.getElementById('period-label').textContent = '📊 Resumen del Período — ' + label;
+  filterData(from, to);
+  render();
+}
+
+function applyCustomRange() {
+  const from = document.getElementById('dateFrom').value;
+  const to   = document.getElementById('dateTo').value;
+  if (!from || !to) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('period-label').textContent = '📊 Rango personalizado: ' + from + ' → ' + to;
+  filterData(from, to);
+  render();
+}
+
+// ──────────────────────────────────────────────
+// RENDER
+// ──────────────────────────────────────────────
+function fmt(n)   { return '$' + n.toFixed(2); }
+function fmtK(n)  { return n >= 1000 ? '$' + (n/1000).toFixed(1) + 'K' : fmt(n); }
+function pct(n)   { return n.toFixed(1) + '%'; }
+
+function render() {
+  renderKPIs();
+  renderCharts();
+  renderTable();
+}
+
+function renderKPIs() {
+  if (filtered.length === 0) {
+    ['orders','revenue','net','ticket','feerate'].forEach(k => {
+      document.getElementById('kpi-'+k).textContent = '—';
+      document.getElementById('kpi-'+k+'-sub').textContent = 'Sin datos';
+    });
+    return;
+  }
+  const totalOrders   = filtered.reduce((s,d) => s + d.orders, 0);
+  const totalShipped  = filtered.reduce((s,d) => s + d.shipped, 0);
+  const totalCancelled= filtered.reduce((s,d) => s + d.cancelled, 0);
+  const totalRevenue  = filtered.reduce((s,d) => s + d.revenue, 0);
+  const totalFees     = filtered.reduce((s,d) => s + d.fees, 0);
+  const totalNet      = filtered.reduce((s,d) => s + d.net, 0);
+  const avgTicket     = totalShipped > 0 ? totalRevenue / totalShipped : 0;
+  const avgFeeRate    = totalRevenue > 0 ? (totalFees / totalRevenue) * 100 : 0;
+  const bestDay       = filtered.reduce((best, d) => d.revenue > best.revenue ? d : best, filtered[0]);
+
+  document.getElementById('kpi-orders').textContent     = totalOrders;
+  document.getElementById('kpi-orders-sub').textContent = `Enviadas: ${totalShipped} · Canceladas: ${totalCancelled}`;
+
+  document.getElementById('kpi-revenue').textContent     = fmtK(totalRevenue) + ' CAD';
+  document.getElementById('kpi-revenue-sub').textContent = `Fees: ${fmt(totalFees)} CAD`;
+
+  const netEl = document.getElementById('kpi-net');
+  netEl.textContent    = fmtK(totalNet) + ' CAD';
+  netEl.className      = 'kpi-value ' + (totalNet >= 0 ? 'val-green' : 'val-red');
+  document.getElementById('kpi-net-sub').textContent = `${pct(totalRevenue > 0 ? (totalNet/totalRevenue)*100 : 0)} del revenue`;
+
+  document.getElementById('kpi-ticket').textContent     = fmt(avgTicket) + ' CAD';
+  document.getElementById('kpi-ticket-sub').textContent = `${totalShipped} órdenes enviadas`;
+
+  document.getElementById('kpi-feerate').textContent     = pct(avgFeeRate);
+  document.getElementById('kpi-feerate-sub').textContent = `Mejor día: ${bestDay.date.slice(5)}`;
+}
+
+function renderCharts() {
+  // Bar chart
+  const labels   = filtered.map(d => d.date.slice(5) + ' ' + d.month.slice(0,3));
+  const revenues = filtered.map(d => d.revenue);
+  const nets     = filtered.map(d => d.net);
+
+  document.getElementById('chart-sub-1').textContent =
+    filtered.length + ' día(s) · ' + (filtered.length > 0 ? filtered[0].date + ' → ' + filtered[filtered.length-1].date : '');
+
+  if (barChartInst) barChartInst.destroy();
+  const ctx1 = document.getElementById('barChart').getContext('2d');
+  barChartInst = new Chart(ctx1, {
     type: 'bar',
     data: {
-      labels: labels,
+      labels,
       datasets: [
-        { label: 'Revenue Bruto', data: revenue, backgroundColor: 'rgba(255,153,0,0.85)', borderRadius: 5, order: 1 },
-        { label: 'Resultado Neto', data: neto, backgroundColor: 'rgba(34,197,94,0.85)', borderRadius: 5, order: 2 }
+        { label: 'Revenue Bruto', data: revenues, backgroundColor: 'rgba(255,153,0,0.85)', borderRadius: 4 },
+        { label: 'Resultado Neto', data: nets, backgroundColor: 'rgba(34,197,94,0.85)', borderRadius: 4 }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'top', labels: { font: { size: 11 } } },
-        tooltip: { callbacks: { label: function(c) { return ' $' + c.parsed.y.toFixed(2) + ' CAD'; } } } },
-      scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: function(v) { return '$'+v; }, font: { size: 11 } } },
-        x: { grid: { display: false }, ticks: { font: { size: 11 } } } }
+      plugins: { legend: { position: 'top', labels: { font: { size: 10 } } },
+        tooltip: { callbacks: { label: c => ' $' + c.parsed.y.toFixed(2) + ' CAD' } } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: v => '$'+v, font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
     }
   });
-})();
+
+  // Donut chart
+  const totalFees = filtered.reduce((s,d) => s+d.fees, 0);
+  const totalNet  = filtered.reduce((s,d) => s+d.net, 0);
+
+  if (donutChartInst) donutChartInst.destroy();
+  const ctx2 = document.getElementById('donutChart').getContext('2d');
+  donutChartInst = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['Fees Amazon', 'Resultado Neto'],
+      datasets: [{
+        data: [Math.max(0, totalFees), Math.max(0, totalNet)],
+        backgroundColor: ['rgba(239,68,68,0.8)', 'rgba(34,197,94,0.8)'],
+        borderWidth: 2, borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 12 } },
+        tooltip: { callbacks: { label: c => ' $' + c.parsed.toFixed(2) + ' CAD' } }
+      },
+      cutout: '65%'
+    }
+  });
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  document.getElementById('table-count').textContent = filtered.length + ' día(s)';
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10" class="no-data">
+      <div class="no-data-icon">📭</div>
+      Sin datos para el período seleccionado.
+    </td></tr>`;
+    return;
+  }
+
+  const bestIdx = filtered.reduce((bi, d, i) => d.revenue > filtered[bi].revenue ? i : bi, 0);
+
+  tbody.innerHTML = filtered.map((d, i) => {
+    const isBest = i === bestIdx;
+    const cancelBadge = d.cancelled > 0
+      ? `<span class="pill pill-red">${d.cancelled} cancel.</span> ` : '';
+    const pendBadge  = d.pending > 0
+      ? `<span class="pill pill-orange">${d.pending} pend.</span> ` : '';
+    const feeClass   = d.feeRate > 30 ? 'val-orange' : 'val-green';
+    return `<tr class="${isBest ? 'best-row' : ''}">
+      <td><strong>${d.date}</strong></td>
+      <td>${d.dow}</td>
+      <td>${d.month}</td>
+      <td>${d.orders} ${cancelBadge}${pendBadge}</td>
+      <td><strong>${fmt(d.revenue)}</strong></td>
+      <td style="color:#b45309;">${fmt(d.fees)}</td>
+      <td><span class="pill pill-green">${fmt(d.net)}</span></td>
+      <td class="${feeClass}">${pct(d.feeRate)}</td>
+      <td style="color:#64748b;">${fmt(d.mtdRevenue)}</td>
+      <td>${d.invAvail}u</td>
+    </tr>`;
+  }).join('');
+}
+
+// ──────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────
+render();
 </script>
 </body>
 </html>
