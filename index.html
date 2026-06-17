@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Dashboard LC Global Industries Inc.</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #1a202c; }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white; padding: 18px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-icon {
+      width: 44px; height: 44px; background: #FF9900;
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-weight: 900; font-size: 16px;
+      color: #0f172a; flex-shrink: 0;
+    }
+    .brand h1 { font-size: 16px; font-weight: 700; }
+    .brand p  { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+    .hdr-right { text-align: right; }
+    .hdr-date  { font-size: 14px; font-weight: 700; color: #FF9900; }
+    .hdr-tag   { font-size: 11px; color: #64748b; margin-top: 3px; }
+    .live-dot  {
+      display: inline-block; width: 7px; height: 7px;
+      background: #22c55e; border-radius: 50%; margin-right: 5px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+
+    main { padding: 20px; max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: #94a3b8; margin: 22px 0 10px;
+    }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .kpi-card {
+      background: white; border-radius: 12px; padding: 16px 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      border-left: 4px solid transparent;
+    }
+    .kpi-card.c-blue   { border-left-color: #3b82f6; }
+    .kpi-card.c-orange { border-left-color: #FF9900; }
+    .kpi-card.c-green  { border-left-color: #22c55e; }
+    .kpi-card.c-purple { border-left-color: #8b5cf6; }
+    .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #94a3b8; }
+    .kpi-value { font-size: 22px; font-weight: 800; color: #0f172a; margin-top: 6px; line-height: 1.1; }
+    .kpi-sub   { font-size: 11px; color: #94a3b8; margin-top: 5px; }
+    .val-green { color: #16a34a; }
+    .val-orange{ color: #b45309; }
+
+    .mtd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .mtd-card {
+      background: #eff6ff; border-radius: 10px; padding: 14px 16px;
+      border: 1px solid #bfdbfe;
+    }
+    .mtd-label { font-size: 10px; font-weight: 700; color: #3b82f6; text-transform: uppercase; }
+    .mtd-value { font-size: 20px; font-weight: 800; color: #1e3a5f; margin-top: 5px; }
+
+    .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .cap-card {
+      background: #f0fdfa; border-radius: 10px; padding: 14px 16px;
+      border: 1px solid #99f6e4;
+    }
+    .cap-label { font-size: 10px; font-weight: 700; color: #0d9488; text-transform: uppercase; }
+    .cap-value { font-size: 17px; font-weight: 800; color: #134e4a; margin-top: 5px; }
+    .cap-sub   { font-size: 11px; color: #64748b; margin-top: 4px; }
+    .liq-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 9999px;
+      font-size: 11px; font-weight: 700; margin-top: 6px;
+    }
+    .liq-warn { background: #fef3c7; color: #b45309; }
+
+    .inv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .inv-card {
+      background: white; border-radius: 10px; padding: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07); text-align: center;
+    }
+    .inv-num   { font-size: 30px; font-weight: 900; color: #1e293b; }
+    .inv-label { font-size: 11px; color: #94a3b8; margin-top: 4px; font-weight: 600; }
+
+    .chart-card {
+      background: white; border-radius: 12px; padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .chart-container { height: 200px; position: relative; }
+
+    .table-card {
+      background: white; border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07); overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    thead tr { background: #f8fafc; }
+    th {
+      padding: 10px 14px; text-align: left; font-size: 10px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+      color: #64748b; border-bottom: 1px solid #e2e8f0; white-space: nowrap;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:first-child td { background: #f0fdf4; font-weight: 600; }
+    .pill {
+      display: inline-block; padding: 2px 9px; border-radius: 9999px;
+      font-size: 11px; font-weight: 700;
+    }
+    .pill-green  { background: #dcfce7; color: #15803d; }
+    .pill-orange { background: #fef3c7; color: #b45309; }
+
+    .alert-card {
+      background: #fefce8; border: 1px solid #fde68a; border-radius: 10px;
+      padding: 12px 16px; font-size: 12px; color: #78350f;
+    }
+    .alert-card strong { color: #92400e; }
+
+    .updated-badge {
+      display: inline-block; background: #dcfce7; color: #15803d;
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 9999px; margin-left: 8px; vertical-align: middle;
+    }
+
+    footer {
+      text-align: center; padding: 18px; font-size: 11px; color: #cbd5e1;
+      border-top: 1px solid #e2e8f0; margin-top: 10px; background: white;
+    }
+
+    @media (max-width: 680px) {
+      .kpi-grid  { grid-template-columns: repeat(2, 1fr); }
+      .cap-grid  { grid-template-columns: repeat(2, 1fr); }
+      .mtd-grid  { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">LC</div>
+    <div>
+      <h1>Executive Dashboard — LC Global Industries Inc.</h1>
+      <p>Amazon.ca Operations · Actualizado por rutina 8AM</p>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-date">Tuesday 2026-06-16 <span class="updated-badge">LIVE</span></div>
+    <div class="hdr-tag"><span class="live-dot"></span>Datos verificados · Google Sheet consolidado</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="section-label">📦 Hoy — 2026-06-16</div>
+  <div class="kpi-grid">
+    <div class="kpi-card c-blue">
+      <div class="kpi-label">Órdenes</div>
+      <div class="kpi-value">6</div>
+      <div class="kpi-sub">Enviadas: 4 &nbsp;·&nbsp; Pendientes: 2</div>
+    </div>
+    <div class="kpi-card c-orange">
+      <div class="kpi-label">Revenue Bruto</div>
+      <div class="kpi-value" style="font-size:19px;">$186.00 CAD</div>
+      <div class="kpi-sub">Fees Amazon: $55.40 CAD</div>
+    </div>
+    <div class="kpi-card c-green">
+      <div class="kpi-label">Resultado Neto</div>
+      <div class="kpi-value val-green" style="font-size:19px;">$129.60 CAD</div>
+      <div class="kpi-sub">Tasa fees: 29.78%</div>
+    </div>
+    <div class="kpi-card c-purple">
+      <div class="kpi-label">Ingreso Neto Ventas</div>
+      <div class="kpi-value" style="font-size:19px;">$130.60 CAD</div>
+      <div class="kpi-sub">Costos op.: $1.00 CAD</div>
+    </div>
+  </div>
+
+  <div class="section-label">📅 Mes a la Fecha — Junio 2026</div>
+  <div class="mtd-grid">
+    <div class="mtd-card">
+      <div class="mtd-label">Órdenes MTD</div>
+      <div class="mtd-value">21</div>
+    </div>
+    <div class="mtd-card">
+      <div class="mtd-label">Revenue Bruto MTD</div>
+      <div class="mtd-value" style="font-size:17px;">$818.03 CAD</div>
+    </div>
+    <div class="mtd-card">
+      <div class="mtd-label">Resultado Neto MTD</div>
+      <div class="mtd-value" style="font-size:17px;">$558.38 CAD</div>
+    </div>
+  </div>
+
+  <div class="section-label">💰 Capital &amp; Liquidez</div>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-label">Capital Total</div>
+      <div class="cap-value">$1,163.67 CAD</div>
+      <div class="cap-sub">Base total de capital</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-label">Comprometido</div>
+      <div class="cap-value val-orange">$1,156.77 CAD</div>
+      <div class="cap-sub">99.4% del total</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-label">Disponible</div>
+      <div class="cap-value val-green">$6.90 CAD</div>
+      <div class="cap-sub">Liquidez: 0.6%</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-label">Estado Liquidez</div>
+      <div class="cap-value" style="font-size:13px; margin-top:10px;">
+        <span class="liq-badge liq-warn">Liquidez Reducida</span>
+      </div>
+      <div class="cap-sub">Variación: $0.00</div>
+    </div>
+  </div>
+
+  <div class="section-label">🏭 Inventario FBA</div>
+  <div class="inv-grid">
+    <div class="inv-card">
+      <div class="inv-num">4</div>
+      <div class="inv-label">SKUs Activos</div>
+    </div>
+    <div class="inv-card">
+      <div class="inv-num">6</div>
+      <div class="inv-label">Unidades Disponibles</div>
+    </div>
+    <div class="inv-card">
+      <div class="inv-num">2</div>
+      <div class="inv-label">Unidades Reservadas</div>
+    </div>
+  </div>
+
+  <div class="section-label">📈 Revenue vs. Resultado Neto — Junio 2026</div>
+  <div class="chart-card">
+    <div class="chart-container">
+      <canvas id="rev-chart"></canvas>
+    </div>
+  </div>
+
+  <div class="section-label">🗃️ Historial Junio</div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th><th>Día</th><th>Órdenes</th>
+          <th>Revenue</th><th>Fees</th><th>Neto</th>
+          <th>Fee Rate</th><th>MTD Qunio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>2026-06-16</strong></td>
+          <td>Tuesday</td><td>6</td>
+          <td>$186.00</td><td>$55.40</td>
+          <td><span class="pill pill-green">$129.60</span></td>
+          <td>29.78%</td><td>$818.03</td>
+        </tr>
+        <tr>
+          <td>2026-06-15</td><td>Monday</td><td>4</td>
+          <td>$101.63</td><td>$28.66</td>
+          <td><span class="pill pill-green">$47.24</span></td>
+          <td>28.20%</td><td>$632.03</td>
+        </tr>
+        <tr>
+          <td>2026-06-14</td><td>Sunday</td><td>3</td>
+          <td>$163.56</td><td>$46.12</td>
+          <td><span class="pill pill-green">$116.44</span></td>
+          <td>28.20%</td><td>$530.40</td>
+        </tr>
+        <tr>
+          <td>2026-06-13</td><td>Saturday</td><td>4</td>
+          <td>$196.71</td><td>$55.51</td>
+          <td><span class="pill pill-green">$140.20</span></td>
+          <td>28.22%</td><td>$366.84</td>
+        </tr>
+        <tr>
+          <td>2026-06-12</td><td>Friday</td><td>1</td>
+          <td>$24.00</td><td>$6.77</td>
+          <td><span class="pill pill-green">$16.23</span></td>
+          <td>28.20%</td><td>$170.13</td>
+        </tr>
+        <tr>
+          <td>2026-06-10</td><td>Wednesday</td><td>2</td>
+          <td>$70.19</td><td>$19.79</td>
+          <td><span class="pill pill-green">$49.40</span></td>
+          <td>28.20%</td><td>$146.13</td>
+        </tr>
+        <tr>
+          <td>2026-06-09</td><td>Tuesday</td><td>2</td>
+          <td>$75.94</td><td>$21.42</td>
+          <td><span class="pill pill-green">$53.52</span></td>
+          <td>28.20%</td><td>$75.94</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">⚠️ Alertas</div>
+  <div class="alert-card">
+    <strong>Inventario crítico:</strong> 7 de 9 SKUs sin stock FBA disponible.
+    Solo Dulce de Leche (77-SMZ3-OXvC,#u) y Yerba Mate Cruz de Malta (QW-QWZ0-LSBG,#u) tienen unidades disponibles.
+    Requiere reposición urgente.<br><br>
+    <em>Fees del día son estimados — eventos financieros Amazon tienen lag de 24h. Se confirman en el reporte de mañana.</em>
+  </div>
+
+</main>
+
+<footer>
+  Executive Dashboard · LC Global Industries Inc. · Amazon.ca ·
+  Última actualización: Rutina 8AM 2026-06-16
+</footer>
+
+<script>
+(function() {
+  var labels  = ['Jun-09','Jun-10','Jun-12','Jun-13','Jun-14','Jun-15','Jun-16'];
+  var revenue = [75.94, 70.19, 24.00, 196.71, 163.56, 101.63, 186.00];
+  var neto    = [53.52, 49.40, 16.23, 140.20, 116.44, 47.24, 129.60];
+  var ctx = document.getElementById('rev-chart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Revenue Bruto', data: revenue, backgroundColor: 'rgba(255,153,0,0.85)', borderRadius: 5, order: 1 },
+        { label: 'Resultado Neto', data: neto, backgroundColor: 'rgba(34,197,94,0.85)', borderRadius: 5, order: 2 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { font: { size: 11 } } },
+        tooltip: { callbacks: { label: function(c) { return ' $' + c.parsed.y.toFixed(2) + ' CAD'; } } } },
+      scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: function(v) { return '$'+v; }, font: { size: 11 } } },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } } }
+    }
+  });
+})();
+</script>
+</body>
+</html>
