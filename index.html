@@ -48,8 +48,7 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,-apple-system,sans-seri
 .kcard.bl{border-top:3px solid #3b82f6}
 .kcard.pu{border-top:3px solid #8b5cf6}
 .klbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:600;margin-bottom:6px}
-
-kval{font-size:22px;font-weight:800;line-height:1.2;color:#1e293b}
+.kval{font-size:22px;font-weight:800;line-height:1.2;color:#1e293b}
 .kval.oj{color:#d97706}
 .kval.gn{color:#16a34a}
 .kval.rd{color:#dc2626}
@@ -58,7 +57,7 @@ kval{font-size:22px;font-weight:800;line-height:1.2;color:#1e293b}
 .ksub{font-size:11px;color:#94a3b8;margin-top:4px}
 
 /* CHARTS */
-.crow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+.crow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20py}
 .ccard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .ccard h4{font-size:12px;font-weight:700;color:#475569;margin-bottom:12px}
 .cwrap{position:relative;height:185px}
@@ -272,12 +271,12 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 <div class="stitle">🏭 Inventario FBA — Snapshot Jun 16</div>
 <div class="card mb20">
   <table>
-    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
     <tbody>
-      <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>1</strong></td><td>1</td><td>0</td><td>2</td><td><span class="badge brd">⚠️ CRÍTICO</span></td></tr>
-      <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>3</strong></td><td>1</td><td>0</td><td>4</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
-      <tr><td>QW-QWZ0-LSBG</td><td>Cruz de Malta 2.2lb Pack of 2</td><td>B07CP1QFY9</td><td><strong>3</strong></td><td>0</td><td>0</td><td>3</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
-      <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>1</strong></td><td>0</td><td>20</td><td>21</td><td><span class="badge bgn">📦 INBOUND 20u</span></td></tr>
+      <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge brd">🔴 SIN STOCK</span></td></tr>
+      <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>3</strong></td><td>0</td><td>0</td><td>3</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
+      <tr><td>QW-QWZ0-LSBG</td><td>Cruz de Malta 2.2lb Pack of 2</td><td>B07CP1QFY9</td><td><strong>2</strong></td><td>1</td><td>0</td><td>3</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
+      <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>0</strong></td><td>0</td><td>22</td><td>22</td><td><span class="badge bgn">📦 22u EN FC</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -294,7 +293,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 // ALL_DATA — actualizado automáticamente cada 8am por la rutina de Claude
 // LAST_UPDATED — timestamp de la última publicación
 // ══════════════════════════════════════════════════════════════════════════════
-const LAST_UPDATED = "2026-06-17T08:00:00-04:00";
+const LAST_UPDATED = "2026-06-17T13:05:00-04:00";
 
 const ALL_DATA = [
   { date:'2026-05-19', dow:'Martes',    month:'Mayo',  mo:5, orders:1, shipped:1, pending:0, cancelled:0, revenue:52.02,  fees:17.16, net:27.91,  feeRate:33.0,  invAvail:54, notes:'WR-7EP2-333F Knorr Caldo FBA' },
@@ -306,6 +305,7 @@ const ALL_DATA = [
   { date:'2026-06-14', dow:'Domingo',   month:'Junio', mo:6, orders:3, shipped:3, pending:0, cancelled:0, revenue:163.56, fees:46.12, net:116.64, feeRate:28.2,  invAvail:12, notes:'Cornwall+Edmonton+QC. 20u Knorr inbound.' },
   { date:'2026-06-15', dow:'Lunes',     month:'Junio', mo:6, orders:4, shipped:4, pending:0, cancelled:0, revenue:101.63, fees:28.66, net:72.17,  feeRate:28.2,  invAvail:8,  notes:'Cruz Malta + Rosamonte bajo stock. 4 órdenes FBA.' },
   { date:'2026-06-16', dow:'Martes',    month:'Junio', mo:6, orders:5, shipped:3, pending:2, cancelled:0, revenue:186.00, fees:55.40, net:129.60, feeRate:29.78, invAvail:6,  notes:'5 órdenes (3 shipped/2 pending Jun 17). SP-API confirmado.' },
+  { date:'2026-06-17', dow:'Miércoles', month:'Junio', mo:6, orders:3, shipped:2, pending:1, cancelled:0, revenue:77.07,  fees:21.73, net:55.34,  feeRate:28.2,  invAvail:5,  notes:'Toronto+Calgary shipped · 1 pending · San Ignacio 3u · Cruz Malta 2u · Knorr 22u en sistema FBA' },
 ];
 
 // SKUs activos — costCAD editable en la interfaz
@@ -327,7 +327,7 @@ const fmt=n=>'$'+n.toFixed(2);
 const pct=n=>n.toFixed(1)+'%';
 
 function getFiltered(){
-  const last=ALL_DATA[ALL_DATA.length-1].date;
+  const last=ACL_DATA[ALL_DATA.length-1].date;
   if(currentFilter==='today') return ALL_DATA.filter(d=>d.date===last);
   if(currentFilter==='last7'){const c=new Date(last);c.setDate(c.getDate()-6);return ALL_DATA.filter(d=>new Date(d.date)>=c);}
   if(currentFilter==='mtd-jun') return ALL_DATA.filter(d=>d.mo===6);
