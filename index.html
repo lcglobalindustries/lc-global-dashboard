@@ -1,603 +1,516 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Executive Dashboard — LC Global Industries Inc.</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
-  <style>
-    :root { color-scheme: light; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #1a202c; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LC Global Industries — Executive Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#f0f2f5;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#1a202c;min-height:100vh}
 
-    header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: white; padding: 16px 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-icon {
-      width: 40px; height: 40px; background: #FF9900; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 14px; color: #0f172a; flex-shrink: 0;
-    }
-    .brand h1 { font-size: 15px; font-weight: 700; }
-    .brand p  { font-size: 11px; color: #94a3b8; margin-top: 2px; }
-    .hdr-right { text-align: right; }
-    .hdr-date  { font-size: 13px; font-weight: 700; color: #FF9900; }
-    .hdr-tag   { font-size: 11px; color: #64748b; margin-top: 2px; }
-    .live-dot  {
-      display: inline-block; width: 7px; height: 7px;
-      background: #22c55e; border-radius: 50%; margin-right: 4px;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+/* HEADER */
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f3460 100%);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.hlogo{font-size:18px;font-weight:800;color:#FF9900;letter-spacing:.5px}
+.hsub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.hbadge{background:rgba(22,163,74,.2);border:1px solid #16a34a;color:#4ade80;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
+.hgithub{font-size:11px;color:rgba(255,255,255,.5);text-align:right}
+.hgithub a{color:#FF9900;text-decoration:none}
 
-    /* FILTER BAR */
-    .filter-bar {
-      background: white; border-bottom: 1px solid #e2e8f0;
-      padding: 12px 24px; display: flex; align-items: center; gap: 12px;
-      flex-wrap: wrap;
-    }
-    .filter-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .8px; }
-    .period-tabs { display: flex; gap: 6px; }
-    .tab-btn {
-      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
-      border: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; cursor: pointer;
-      transition: all .15s;
-    }
-    .tab-btn:hover { border-color: #FF9900; color: #FF9900; }
-    .tab-btn.active { background: #FF9900; border-color: #FF9900; color: #0f172a; }
-    .date-range { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-    .date-range label { font-size: 11px; color: #64748b; font-weight: 600; }
-    .date-input {
-      padding: 5px 10px; border: 1px solid #e2e8f0; border-radius: 6px;
-      font-size: 12px; color: #334155; background: #f8fafc; cursor: pointer;
-    }
-    .date-input:focus { outline: none; border-color: #FF9900; }
-    .apply-btn {
-      padding: 6px 12px; background: #0f172a; color: white; border: none;
-      border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
-    }
-    .apply-btn:hover { background: #1e293b; }
+/* FILTER BAR */
+.fbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.flabel{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-right:2px}
+.pbtn{background:#f1f5f9;border:1px solid #e2e8f0;color:#475569;padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;transition:all .15s;font-weight:500}
+.pbtn:hover{background:#fef3c7;border-color:#FF9900;color:#92400e}
+.pbtn.active{background:#FF9900;border-color:#FF9900;color:#000;font-weight:700}
+.fsep{color:#cbd5e1}
+.dinp{background:#f8fafc;border:1px solid #e2e8f0;color:#334155;padding:5px 10px;border-radius:6px;font-size:12px;width:128px}
+.dinp:focus{outline:none;border-color:#FF9900}
+.abtn{background:#FF9900;border:none;color:#000;font-weight:700;padding:5px 16px;border-radius:6px;font-size:12px;cursor:pointer}
+.abtn:hover{background:#f59e0b}
+.ppill{margin-left:auto;background:#fef3c7;border:1px solid #fbbf24;color:#92400e;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
 
-    main { padding: 20px; max-width: 1000px; margin: 0 auto; }
+/* LAYOUT */
+.content{padding:20px 24px;max-width:1440px;margin:0 auto}
+.stitle{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.stitle::after{content:'';flex:1;height:1px;background:#e2e8f0}
+.mb20{margin-bottom:20px}
 
-    .section-label {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.2px; color: #94a3b8; margin: 20px 0 10px;
-    }
+/* KPI GRID */
+.kgrid{display:grid;gap:12px;margin-bottom:20px}
+.k6{grid-template-columns:repeat(6,1fr)}
+.k4{grid-template-columns:repeat(4,1fr)}
+.kcard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:transform .15s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.kcard.oj{border-top:3px solid #FF9900}
+.kcard.gn{border-top:3px solid #16a34a}
+.kcard.rd{border-top:3px solid #dc2626}
+.kcard.bl{border-top:3px solid #3b82f6}
+.kcard.pu{border-top:3px solid #8b5cf6}
+.klbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:600;margin-bottom:6px}
 
-    /* KPI GRID */
-    .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-    .kpi-card {
-      background: white; border-radius: 10px; padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid transparent;
-    }
-    .kpi-card.c-blue   { border-left-color: #3b82f6; }
-    .kpi-card.c-orange { border-left-color: #FF9900; }
-    .kpi-card.c-green  { border-left-color: #22c55e; }
-    .kpi-card.c-purple { border-left-color: #8b5cf6; }
-    .kpi-card.c-teal   { border-left-color: #14b8a6; }
-    .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #94a3b8; }
-    .kpi-value { font-size: 20px; font-weight: 800; color: #0f172a; margin-top: 6px; line-height: 1.1; }
-    .kpi-sub   { font-size: 11px; color: #94a3b8; margin-top: 4px; }
-    .val-green  { color: #16a34a; }
-    .val-orange { color: #b45309; }
-    .val-red    { color: #dc2626; }
+kval{font-size:22px;font-weight:800;line-height:1.2;color:#1e293b}
+.kval.oj{color:#d97706}
+.kval.gn{color:#16a34a}
+.kval.rd{color:#dc2626}
+.kval.bl{color:#2563eb}
+.kval.pu{color:#7c3aed}
+.ksub{font-size:11px;color:#94a3b8;margin-top:4px}
 
-    /* CHARTS GRID */
-    .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
-    .chart-card {
-      background: white; border-radius: 10px; padding: 16px 18px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
-    }
-    .chart-title { font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 3px; }
-    .chart-sub   { font-size: 10px; color: #94a3b8; margin-bottom: 12px; }
-    .chart-container { height: 180px; position: relative; }
+/* CHARTS */
+.crow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+.ccard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ccard h4{font-size:12px;font-weight:700;color:#475569;margin-bottom:12px}
+.cwrap{position:relative;height:185px}
 
-    /* MONTHLY COMPARE */
-    .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .month-card {
-      background: white; border-radius: 10px; padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
-      border-top: 3px solid transparent;
-    }
-    .month-card.april { border-top-color: #8b5cf6; }
-    .month-card.may   { border-top-color: #3b82f6; }
-    .month-card.june  { border-top-color: #FF9900; }
-    .month-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #64748b; }
-    .month-rev  { font-size: 22px; font-weight: 800; color: #0f172a; margin: 6px 0 2px; }
-    .month-stats { font-size: 11px; color: #94a3b8; line-height: 1.7; }
-    .month-stats strong { color: #334155; }
-    .no-data-badge {
-      display: inline-block; padding: 2px 8px; background: #f1f5f9; color: #94a3b8;
-      border-radius: 999px; font-size: 10px; font-weight: 700; margin-top: 4px;
-    }
+/* TABLE */
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:20px;overflow:hidden}
+.chead{padding:12px 16px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:700;color:#475569;display:flex;align-items:center;gap:8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:#f8fafc;padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700;border-bottom:1px solid #e2e8f0}
+td{padding:9px 14px;border-bottom:1px solid #f1f5f9;color:#374151;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fafbfc}
+tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.bgn{background:#dcfce7;color:#15803d}
+.boj{background:#fef3c7;color:#92400e}
+.brd{background:#fee2e2;color:#b91c1c}
+.bbl{background:#dbeafe;color:#1d4ed8}
+.bpu{background:#ede9fe;color:#6d28d9}
 
-    /* TABLE */
-    .table-card {
-      background: white; border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06); overflow: hidden;
-    }
-    .table-header {
-      padding: 14px 16px; border-bottom: 1px solid #f1f5f9;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .table-title { font-size: 13px; font-weight: 700; color: #0f172a; }
-    .table-count { font-size: 11px; color: #94a3b8; }
-    table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    th {
-      padding: 9px 14px; text-align: left; font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .5px; color: #94a3b8;
-      background: #f8fafc; border-bottom: 1px solid #e2e8f0; white-space: nowrap;
-    }
-    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover td { background: #fafbfc; }
-    .pill {
-      display: inline-block; padding: 2px 8px; border-radius: 999px;
-      font-size: 10px; font-weight: 700;
-    }
-    .pill-green  { background: #dcfce7; color: #15803d; }
-    .pill-orange { background: #fef3c7; color: #b45309; }
-    .pill-red    { background: #fee2e2; color: #b91c1c; }
-    .pill-blue   { background: #dbeafe; color: #1d4ed8; }
-    .best-row td { background: #fffbeb !important; }
-    .best-row td:first-child::before { content: '⭐ '; }
+/* SKU */
+.sku-inp{background:#f8fafc;border:1px solid #e2e8f0;color:#334155;padding:4px 8px;border-radius:4px;font-size:12px;width:72px;text-align:right}
+.sku-inp:focus{outline:none;border-color:#FF9900;background:#fffbeb}
+.rbar{display:flex;align-items:center;gap:8px}
+.rbg{background:#e2e8f0;border-radius:4px;height:6px;flex:1;overflow:hidden}
+.rfill{height:100%;border-radius:4px;transition:width .3s}
+.rval{font-size:12px;font-weight:700;white-space:nowrap}
+.rgn{color:#16a34a} .roj{color:#d97706} .rrd{color:#dc2626}
 
-    /* CAPITAL */
-    .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .cap-card {
-      background: #f0fdf4; border-radius: 10px; padding: 14px 16px;
-      border: 1px solid #99f6e4;
-    }
-    .cap-label { font-size: 10px; font-weight: 700; color: #0d9488; text-transform: uppercase; }
-    .cap-value { font-size: 17px; font-weight: 800; color: #134e4a; margin-top: 5px; }
-    .cap-sub   { font-size: 11px; color: #64748b; margin-top: 3px; }
-    .liq-warn  { background: #fef3c7; color: #b45309; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; margin-top: 6px; display: inline-block; }
+/* MONTHLY */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.mcard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.mcard.cur{border-top:3px solid #FF9900}
+.mname{font-size:15px;font-weight:800;color:#0f172a;margin-bottom:12px}
+.mrow{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.mlbl{color:#64748b} .mval{font-weight:600;color:#1e293b}
 
-    /* NO DATA */
-    .no-data { text-align: center; padding: 32px; color: #94a3b8; font-size: 13px; }
-    .no-data-icon { font-size: 32px; margin-bottom: 8px; }
+/* CAPITAL */
+.cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.capcard{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.caplbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:600;margin-bottom:6px}
+.capval{font-size:20px;font-weight:800}
+.capsub{font-size:11px;color:#94a3b8;margin-top:3px}
+.liqalert{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:14px;text-align:center}
+.liqpct{font-size:32px;font-weight:800;color:#dc2626}
+.liqstatus{font-size:11px;color:#ef4444;font-weight:600;margin-top:4px}
+.donutwrap{display:flex;align-items:center;gap:20px}
+.dwrap{position:relative;width:140px;height:140px;flex-shrink:0}
+.dleg li{display:flex;align-items:center;gap:7px;font-size:12px;color:#475569;margin-bottom:7px;list-style:none}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pcard{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px}
+.pname{font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px}
+.pval{font-size:22px;font-weight:800;color:#0f172a}
+.ppct{font-size:12px;color:#64748b}
+.infonote{background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:9px 13px;font-size:12px;color:#1d4ed8;margin-bottom:12px}
+.ghlink{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.ghlink a{color:#FF9900;font-weight:700;text-decoration:none;font-size:13px}
+.ghlink span{font-size:11px;color:rgba(255,255,255,.5)}
 
-    footer {
-      text-align: center; padding: 16px; font-size: 11px; color: #cbd5e1;
-      border-top: 1px solid #e2e8f0; margin-top: 10px; background: white;
-    }
-
-    @media (max-width: 720px) {
-      .kpi-grid   { grid-template-columns: repeat(2, 1fr); }
-      .charts-grid{ grid-template-columns: 1fr; }
-      .month-grid { grid-template-columns: 1fr; }
-      .cap-grid   { grid-template-columns: repeat(2, 1fr); }
-      .date-range { display: none; }
-    }
-  </style>
+@media(max-width:900px){.k6{grid-template-columns:repeat(3,1fr)}.k4{grid-template-columns:repeat(2,1fr)}.crow{grid-template-columns:1fr}.mgrid{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.k6{grid-template-columns:repeat(2,1fr)}.content{padding:14px}.fbar{padding:10px 14px}}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <div class="brand-icon">LC</div>
-    <div>
-      <h1>Executive Dashboard — LC Global Industries Inc.</h1>
-      <p>Amazon.ca Operations · Actualizado por Rutina 8AM</p>
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="hlogo">🇨🇦 LC Global Industries Inc.</div>
+    <div class="hsub">Executive Dashboard — Amazon FBA Canada · Publicado automáticamente a las 8am ET</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="hgithub">
+      🌐 <a href="https://lcglobalindustries.github.io/lc-global-dashboard/" target="_blank">lcglobalindustries.github.io/lc-global-dashboard</a><br>
+      Actualizado: <span id="lastUpdated">—</span>
     </div>
-  </div>
-  <div class="hdr-right">
-    <div class="hdr-date">2026-06-16 <span style="font-size:10px;background:#dcfce7;color:#15803d;padding:2px 7px;border-radius:999px;font-weight:700;margin-left:4px;">LIVE</span></div>
-    <div class="hdr-tag"><span class="live-dot"></span>Datos verificados · Google Sheet consolidado</div>
-  </div>
-</header>
-
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <span class="filter-label">Período:</span>
-  <div class="period-tabs">
-    <button class="tab-btn" onclick="setPreset('april')">Abril 2026</button>
-    <button class="tab-btn" onclick="setPreset('may')">Mayo 2026</button>
-    <button class="tab-btn" onclick="setPreset('june')">Junio 2026</button>
-    <button class="tab-btn active" onclick="setPreset('all')">Todo</button>
-  </div>
-  <div class="date-range">
-    <label>Desde:</label>
-    <input type="date" class="date-input" id="dateFrom" value="2026-04-01">
-    <label>Hasta:</label>
-    <input type="date" class="date-input" id="dateTo" value="2026-06-16">
-    <button class="apply-btn" onclick="applyCustomRange()">Aplicar</button>
+    <div class="hbadge" id="liveBadge">● LIVE</div>
   </div>
 </div>
 
-<main>
+<!-- FILTER BAR -->
+<div class="fbar">
+  <span class="flabel">Período</span>
+  <button class="pbtn" onclick="setF('today')">Hoy</button>
+  <button class="pbtn" onclick="setF('last7')">Últ. 7 días</button>
+  <button class="pbtn" onclick="setF('mtd-jun')">MTD Jun</button>
+  <button class="pbtn" onclick="setF('mtd-may')">MTD May</button>
+  <button class="pbtn active" onclick="setF('all')">Todo</button>
+  <span class="fsep">|</span>
+  <input type="date" id="fromDate" class="dinp" value="2026-05-19">
+  <span class="fsep">→</span>
+  <input type="date" id="toDate" class="dinp" value="2026-06-16">
+  <button class="abtn" onclick="setF('custom')">Aplicar</button>
+  <span class="ppill" id="ppill">📅 May 19 – Jun 16 · 9 días</span>
+</div>
 
-  <div class="section-label" id="period-label">📊 Resumen del Período — Todo</div>
+<div class="content">
 
-  <!-- KPIs -->
-  <div class="kpi-grid">
-    <div class="kpi-card c-blue">
-      <div class="kpi-label">Órdenes</div>
-      <div class="kpi-value" id="kpi-orders">—</div>
-      <div class="kpi-sub" id="kpi-orders-sub">—</div>
-    </div>
-    <div class="kpi-card c-orange">
-      <div class="kpi-label">Revenue Bruto</div>
-      <div class="kpi-value" id="kpi-revenue">—</div>
-      <div class="kpi-sub" id="kpi-revenue-sub">—</div>
-    </div>
-    <div class="kpi-card c-green">
-      <div class="kpi-label">Resultado Neto</div>
-      <div class="kpi-value" id="kpi-net">—</div>
-      <div class="kpi-sub" id="kpi-net-sub">—</div>
-    </div>
-    <div class="kpi-card c-purple">
-      <div class="kpi-label">Ticket Promedio</div>
-      <div class="kpi-value" id="kpi-ticket">—</div>
-      <div class="kpi-sub" id="kpi-ticket-sub">—</div>
-    </div>
-    <div class="kpi-card c-teal">
-      <div class="kpi-label">Fee Rate Prom.</div>
-      <div class="kpi-value" id="kpi-feerate">—</div>
-      <div class="kpi-sub" id="kpi-feerate-sub">—</div>
+<!-- KPI PERÍODO -->
+<div class="stitle">📊 Resumen del Período Seleccionado</div>
+<div class="kgrid k6 mb20">
+  <div class="kcard oj"><div class="klbl">Órdenes</div><div class="kval oj" id="k-ord">—</div><div class="ksub" id="k-ord-s">shipped/pending</div></div>
+  <div class="kcard bl"><div class="klbl">Ingresos Brutos</div><div class="kval bl" id="k-rev">—</div><div class="ksub">CAD</div></div>
+  <div class="kcard rd"><div class="klbl">Fees Amazon</div><div class="kval rd" id="k-fee">—</div><div class="ksub" id="k-fee-r">referral+FBA</div></div>
+  <div class="kcard gn"><div class="klbl">Neto post-fees</div><div class="kval gn" id="k-net">—</div><div class="ksub" id="k-net-m">margen</div></div>
+  <div class="kcard pu"><div class="klbl">Ticket Promedio</div><div class="kval pu" id="k-tkt">—</div><div class="ksub">por orden</div></div>
+  <div class="kcard"><div class="klbl">Días activos</div><div class="kval" id="k-days">—</div><div class="ksub" id="k-days-s">en período</div></div>
+</div>
+
+<!-- CHARTS -->
+<div class="crow mb20">
+  <div class="ccard">
+    <h4>📈 Evolución Diaria — Ingresos vs Neto vs Fees (CAD)</h4>
+    <div class="cwrap"><canvas id="barChart"></canvas></div>
+  </div>
+  <div class="ccard">
+    <h4>🥧 Composición del Período</h4>
+    <div class="cwrap"><canvas id="donutChart"></canvas></div>
+  </div>
+</div>
+
+<!-- TABLA OPERACIONES -->
+<div class="stitle">🧾 Operaciones Día a Día</div>
+<div class="card mb20">
+  <div class="chead"><span>Detalle — <span id="ttitle">período completo</span></span><span class="badge boj" style="margin-left:auto">⭐ = mejor día</span></div>
+  <table>
+    <thead><tr>
+      <th>Fecha</th><th>Día</th><th>Mes</th><th>Órdenes</th><th>Shipped</th>
+      <th>Pending</th><th>Ingresos</th><th>Fees</th><th>Fee %</th>
+      <th>Neto</th><th>Margen</th><th>Inv.</th><th>Notas</th>
+    </tr></thead>
+    <tbody id="opsBody"></tbody>
+  </table>
+</div>
+
+<!-- SKU ROI -->
+<div class="stitle">📦 Rentabilidad por SKU</div>
+<div class="infonote">💡 Costos unitarios estimados (actualizar con valores reales para cálculo exacto de ROI). Precios de venta = promedio histórico del período activo.</div>
+<div class="card mb20">
+  <div class="chead">Análisis de ROI — Canal FBA (fee rate 28.2% prom.) · Costos editables</div>
+  <table>
+    <thead><tr>
+      <th>SKU</th><th>Producto</th><th>ASIN</th><th>Precio Venta Prom.</th>
+      <th>Costo Unit. CAD ✏️</th><th>Fee Amazon $</th>
+      <th>Neto post-fee</th><th>Ganancia/costo</th><th>ROI %</th><th>Margen %</th>
+    </tr></thead>
+    <tbody id="skuBody"></tbody>
+  </table>
+</div>
+
+<!-- COMPARATIVO MENSUAL -->
+<div class="stitle">📅 Comparativo Mensual</div>
+<div class="mgrid mb20">
+  <div class="mcard">
+    <div class="mname">Abril 2026</div>
+    <div class="mrow"><span class="mlbl">Órdenes</span><span class="mval">0</span></div>
+    <div class="mrow"><span class="mlbl">Ingresos</span><span class="mval">$0.00</span></div>
+    <div class="mrow"><span class="mlbl">Neto</span><span class="mval">$0.00</span></div>
+    <div class="mrow"><span class="mlbl">Estado</span><span class="badge brd">Sin datos</span></div>
+  </div>
+  <div class="mcard">
+    <div class="mname">Mayo 2026</div>
+    <div class="mrow"><span class="mlbl">Órdenes</span><span class="mval" id="may-o">—</span></div>
+    <div class="mrow"><span class="mlbl">Ingresos</span><span class="mval" id="may-r">—</span></div>
+    <div class="mrow"><span class="mlbl">Fees</span><span class="mval" id="may-f">—</span></div>
+    <div class="mrow"><span class="mlbl">Neto</span><span class="mval" id="may-n">—</span></div>
+  </div>
+  <div class="mcard cur">
+    <div class="mname">Junio 2026 <span class="badge boj">ACTIVO</span></div>
+    <div class="mrow"><span class="mlbl">Órdenes</span><span class="mval" id="jun-o">—</span></div>
+    <div class="mrow"><span class="mlbl">Ingresos</span><span class="mval" id="jun-r">—</span></div>
+    <div class="mrow"><span class="mlbl">Fees</span><span class="mval" id="jun-f">—</span></div>
+    <div class="mrow"><span class="mlbl">Neto MTD</span><span class="mval" id="jun-n">—</span></div>
+  </div>
+</div>
+
+<!-- CAPITAL & LIQUIDEZ -->
+<div class="stitle">💰 Capital & Liquidez — Snapshot</div>
+<div class="cgrid mb20" style="margin-bottom:12px">
+  <div class="capcard"><div class="caplbl">Capital Total Socios</div><div class="capval" style="color:#0f172a">$5,019.44</div><div class="capsub">CAD total</div></div>
+  <div class="capcard"><div class="caplbl">Capital Comprometido</div><div class="capval" style="color:#d97706">$1,156.77</div><div class="capsub">en inventario FBA</div></div>
+  <div class="capcard"><div class="caplbl">Capital Líquido</div><div class="capval" style="color:#2563eb">$1,210.91</div><div class="capsub">disponible socios</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+  <div class="card" style="margin-bottom:0">
+    <div class="chead">🥧 Distribución Capital en Inventario</div>
+    <div class="donutwrap" style="padding:14px">
+      <div class="dwrap"><canvas id="capitalChart"></canvas></div>
+      <ul class="dleg">
+        <li><span class="dot" style="background:#FF9900"></span>Comprometido $1,156.77 (95.5%)</li>
+        <li><span class="dot" style="background:#16a34a"></span>Disponible $6.90 (0.6%)</li>
+        <li><span class="dot" style="background:#3b82f6"></span>En tránsito $47.24 (3.9%)</li>
+      </ul>
     </div>
   </div>
-
-  <!-- CHARTS -->
-  <div class="section-label">📈 Revenue vs. Resultado Neto</div>
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-title">Revenue vs. Neto por Día</div>
-      <div class="chart-sub" id="chart-sub-1">Período seleccionado</div>
-      <div class="chart-container"><canvas id="barChart"></canvas></div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="liqalert">
+      <div class="caplbl">Índice de Liquidez Operativa</div>
+      <div class="liqpct">4.47%</div>
+      <div class="liqstatus">⚠️ LIQUIDEZ REDUCIDA · Próximo pago Amazon: ~5–7 días</div>
     </div>
-    <div class="chart-card">
-      <div class="chart-title">Composición de Ingresos</div>
-      <div class="chart-sub">Fees Amazon vs. Neto</div>
-      <div class="chart-container"><canvas id="donutChart"></canvas></div>
+    <div class="pgrid">
+      <div class="pcard"><div class="pname">Jermain</div><div class="pval">$2,329.03</div><div class="ppct">46.4% del capital</div></div>
+      <div class="pcard"><div class="pname">Fernando</div><div class="pval">$2,690.37</div><div class="ppct">53.6% del capital</div></div>
     </div>
   </div>
+</div>
 
-  <!-- MONTHLY COMPARE -->
-  <div class="section-label">📅 Resumen por Mes</div>
-  <div class="month-grid">
-    <div class="month-card april">
-      <div class="month-name">🟣 Abril 2026</div>
-      <div class="month-rev">$0.00 CAD</div>
-      <div class="month-stats">
-        <strong>0</strong> órdenes · Sin ventas<br>
-        Fase startup (compras & setup)
-      </div>
-      <div class="no-data-badge">Etapa Pre-Lanzamiento</div>
-    </div>
-    <div class="month-card may">
-      <div class="month-name">🔵 Mayo 2026</div>
-      <div class="month-rev">$82.57 CAD</div>
-      <div class="month-stats">
-        <strong>3</strong> órdenes (<strong>2</strong> enviadas · <strong>1</strong> cancelada)<br>
-        Fees: <strong>$21.74</strong> · Neto: <strong>$46.93</strong><br>
-        Fee rate: <strong>26.3%</strong> · Ticket: <strong>$41.29</strong>
-      </div>
-    </div>
-    <div class="month-card june">
-      <div class="month-name">🟠 Junio 2026 (al 16)</div>
-      <div class="month-rev">$818.03 CAD</div>
-      <div class="month-stats">
-        <strong>21</strong> órdenes enviadas<br>
-        Fees: <strong>$233.67</strong> · Neto: <strong>$578.68</strong><br>
-        Fee rate: <strong>28.6%</strong> · Ticket: <strong>$38.95</strong>
-      </div>
-    </div>
-  </div>
+<!-- INVENTARIO SNAPSHOT -->
+<div class="stitle">🏭 Inventario FBA — Snapshot Jun 16</div>
+<div class="card mb20">
+  <table>
+    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+    <tbody>
+      <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>1</strong></td><td>1</td><td>0</td><td>2</td><td><span class="badge brd">⚠️ CRÍTICO</span></td></tr>
+      <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>3</strong></td><td>1</td><td>0</td><td>4</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
+      <tr><td>QW-QWZ0-LSBG</td><td>Cruz de Malta 2.2lb Pack of 2</td><td>B07CP1QFY9</td><td><strong>3</strong></td><td>0</td><td>0</td><td>3</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
+      <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>1</strong></td><td>0</td><td>20</td><td>21</td><td><span class="badge bgn">📦 INBOUND 20u</span></td></tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- TABLE -->
-  <div class="section-label">🗓️ Historial Día a Día</div>
-  <div class="table-card">
-    <div class="table-header">
-      <div class="table-title">Detalle de Operaciones</div>
-      <div class="table-count" id="table-count">0 días</div>
-    </div>
-    <div id="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th><th>Día</th><th>Mes</th><th>Órdenes</th>
-            <th>Revenue</th><th>Fees</th><th>Neto</th><th>Fee %</th><th>MTD Rev.</th><th>Inv. Disp.</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
-    </div>
-  </div>
+<div style="text-align:center;font-size:11px;color:#94a3b8;padding:16px 0;">
+  LC Global Industries Inc. · Amazon FBA Canada · Dashboard generado automáticamente ·
+  <a href="https://lcglobalindustries.github.io/lc-global-dashboard/" style="color:#FF9900">lcglobalindustries.github.io/lc-global-dashboard</a>
+</div>
 
-  <!-- CAPITAL -->
-  <div class="section-label">💰 Capital &amp; Liquidez (Snapshot 2026-06-16)</div>
-  <div class="cap-grid">
-    <div class="cap-card">
-      <div class="cap-label">Capital Total</div>
-      <div class="cap-value">$1,163.67 CAD</div>
-      <div class="cap-sub">Jermain + Fernando</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-label">Comprometido</div>
-      <div class="cap-value val-orange">$1,156.77 CAD</div>
-      <div class="cap-sub">99.4% del total</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-label">Disponible</div>
-      <div class="cap-value val-green">$6.90 CAD</div>
-      <div class="cap-sub">Liquidez: 0.6%</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-label">Estado</div>
-      <div style="margin-top:10px;"><span class="liq-warn">⚠️ Liquidez Reducida</span></div>
-      <div class="cap-sub" style="margin-top:6px;">Requiere reposición urgente</div>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  Executive Dashboard · LC Global Industries Inc. · Amazon.ca · Rutina 8AM 2026-06-16
-</footer>
+</div><!-- /content -->
 
 <script>
-// ──────────────────────────────────────────────
-// DATA — May & June 2026
-// ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// ALL_DATA — actualizado automáticamente cada 8am por la rutina de Claude
+// LAST_UPDATED — timestamp de la última publicación
+// ══════════════════════════════════════════════════════════════════════════════
+const LAST_UPDATED = "2026-06-17T08:00:00-04:00";
+
 const ALL_DATA = [
-  // MAY
-  { date:'2026-05-19', dow:'Martes',    month:'Mayo', mo:5,
-    orders:1, shipped:1, pending:0, cancelled:0,
-    revenue:52.02,  fees:17.16, net:27.91, feeRate:33.0,
-    mtdOrders:1,  mtdRevenue:52.02,  mtdNet:27.91,
-    invAvail:54,  invSKUs:4, notes:'WR-7EP2-333F Knorr Caldo FBA' },
-  { date:'2026-05-25', dow:'Domingo',   month:'Mayo', mo:5,
-    orders:2, shipped:1, pending:0, cancelled:1,
-    revenue:30.55,  fees:4.58,  net:19.02, feeRate:15.0,
-    mtdOrders:3,  mtdRevenue:82.57,  mtdNet:46.93,
-    invAvail:53,  invSKUs:4, notes:'San Ignacio FBM $30.55 · 1 cancelada' },
-  // JUNE
-  { date:'2026-06-09', dow:'Martes',    month:'Junio', mo:6,
-    orders:2, shipped:2, pending:0, cancelled:0,
-    revenue:75.94,  fees:21.41, net:53.73, feeRate:28.2,
-    mtdOrders:2,  mtdRevenue:75.94,  mtdNet:53.73,
-    invAvail:52,  invSKUs:4, notes:'2 órdenes FBA. Fees estimados' },
-  { date:'2026-06-10', dow:'Miércoles', month:'Junio', mo:6,
-    orders:2, shipped:2, pending:0, cancelled:0,
-    revenue:70.19,  fees:19.80, net:49.59, feeRate:28.2,
-    mtdOrders:4,  mtdRevenue:146.13, mtdNet:103.32,
-    invAvail:50,  invSKUs:4, notes:'2 órdenes FBA. Fees estimados' },
-  { date:'2026-06-12', dow:'Viernes',   month:'Junio', mo:6,
-    orders:1, shipped:1, pending:0, cancelled:0,
-    revenue:24.00,  fees:6.77,  net:16.43, feeRate:28.2,
-    mtdOrders:5,  mtdRevenue:170.13, mtdNet:119.75,
-    invAvail:49,  invSKUs:4, notes:'San Ignacio $24.00 FBA' },
-  { date:'2026-06-13', dow:'Sábado',    month:'Junio', mo:6,
-    orders:4, shipped:4, pending:0, cancelled:0,
-    revenue:196.71, fees:55.51, net:140.40, feeRate:28.2,
-    mtdOrders:9,  mtdRevenue:366.84, mtdNet:260.15,
-    invAvail:54,  invSKUs:4, notes:'702-8454548+701-4080737 PEI+London + Calgary+N.Vancouver. Primera rutina.' },
-  { date:'2026-06-14', dow:'Domingo',   month:'Junio', mo:6,
-    orders:3, shipped:3, pending:0, cancelled:0,
-    revenue:163.56, fees:46.12, net:116.64, feeRate:28.2,
-    mtdOrders:12, mtdRevenue:530.40, mtdNet:376.79,
-    invAvail:12,  invSKUs:4, notes:'701-2693625+701-7554192+701-3942601 Cornwall+Edmonton+QC. 20u Knorr inbound.' },
-  { date:'2026-06-15', dow:'Lunes',     month:'Junio', mo:6,
-    orders:4, shipped:4, pending:0, cancelled:0,
-    revenue:101.63, fees:28.66, net:72.17, feeRate:28.2,
-    mtdOrders:16, mtdRevenue:632.03, mtdNet:448.96,
-    invAvail:8,   invSKUs:4, notes:'Cruz Malta + Rosamonte bajo stock. 4 órdenes FBA Kitchener/Hamilton/Toronto/NB.' },
-  { date:'2026-06-16', dow:'Martes',    month:'Junio', mo:6,
-    orders:5, shipped:3, pending:2, cancelled:0,
-    revenue:186.00, fees:55.40, net:129.60, feeRate:29.78,
-    mtdOrders:21, mtdRevenue:818.03, mtdNet:578.56,
-    invAvail:6,   invSKUs:4, notes:'5 órdenes (3 shipped/2 pending Jun 17). SP-API confirmado. Fees estimados lag 24h.' },
+  { date:'2026-05-19', dow:'Martes',    month:'Mayo',  mo:5, orders:1, shipped:1, pending:0, cancelled:0, revenue:52.02,  fees:17.16, net:27.91,  feeRate:33.0,  invAvail:54, notes:'WR-7EP2-333F Knorr Caldo FBA' },
+  { date:'2026-05-25', dow:'Domingo',   month:'Mayo',  mo:5, orders:2, shipped:1, pending:0, cancelled:1, revenue:30.55,  fees:4.58,  net:19.02,  feeRate:15.0,  invAvail:53, notes:'San Ignacio FBM $30.55 · 1 cancelada' },
+  { date:'2026-06-09', dow:'Martes',    month:'Junio', mo:6, orders:2, shipped:2, pending:0, cancelled:0, revenue:75.94,  fees:21.41, net:53.73,  feeRate:28.2,  invAvail:52, notes:'2 órdenes FBA. Fees estimados' },
+  { date:'2026-06-10', dow:'Miércoles', month:'Junio', mo:6, orders:2, shipped:2, pending:0, cancelled:0, revenue:70.19,  fees:19.80, net:49.59,  feeRate:28.2,  invAvail:50, notes:'2 órdenes FBA. Fees estimados' },
+  { date:'2026-06-12', dow:'Viernes',   month:'Junio', mo:6, orders:1, shipped:1, pending:0, cancelled:0, revenue:24.00,  fees:6.77,  net:16.43,  feeRate:28.2,  invAvail:49, notes:'San Ignacio $24.00 FBA' },
+  { date:'2026-06-13', dow:'Sábado',    month:'Junio', mo:6, orders:4, shipped:4, pending:0, cancelled:0, revenue:196.71, fees:55.51, net:140.40, feeRate:28.2,  invAvail:54, notes:'PEI+London+Calgary+N.Vancouver. Primera rutina.' },
+  { date:'2026-06-14', dow:'Domingo',   month:'Junio', mo:6, orders:3, shipped:3, pending:0, cancelled:0, revenue:163.56, fees:46.12, net:116.64, feeRate:28.2,  invAvail:12, notes:'Cornwall+Edmonton+QC. 20u Knorr inbound.' },
+  { date:'2026-06-15', dow:'Lunes',     month:'Junio', mo:6, orders:4, shipped:4, pending:0, cancelled:0, revenue:101.63, fees:28.66, net:72.17,  feeRate:28.2,  invAvail:8,  notes:'Cruz Malta + Rosamonte bajo stock. 4 órdenes FBA.' },
+  { date:'2026-06-16', dow:'Martes',    month:'Junio', mo:6, orders:5, shipped:3, pending:2, cancelled:0, revenue:186.00, fees:55.40, net:129.60, feeRate:29.78, invAvail:6,  notes:'5 órdenes (3 shipped/2 pending Jun 17). SP-API confirmado.' },
 ];
 
-// ──────────────────────────────────────────────
-// STATE
-// ──────────────────────────────────────────────
-let filtered = [...ALL_DATA];
-let barChartInst = null;
-let donutChartInst = null;
-let currentPreset = 'all';
+// SKUs activos — costCAD editable en la interfaz
+const SKUS = [
+  { asin:'B008OFGXEK', sku:'WR-7EP2-333F', name:'Knorr Caldo de Tomate 35.3 oz',     avgSalePrice:52.77, costCAD:24.00, feeRate:0.282 },
+  { asin:'B0127SUHFK', sku:'77-SMZ3-OXWC', name:'San Ignacio Dulce de Leche 2-Pack', avgSalePrice:24.00, costCAD:14.00, feeRate:0.282 },
+  { asin:'B07CP1QFY9', sku:'QW-QWZ0-LSBG', name:'Cruz de Malta 2.2lb Pack of 2',     avgSalePrice:38.50, costCAD:21.00, feeRate:0.282 },
+  { asin:'B002ZBBTLG', sku:'6D-TO2I-APZ9', name:'Yerba Mate Rosamonte 1kg',           avgSalePrice:31.50, costCAD:17.00, feeRate:0.282 },
+];
 
-// ──────────────────────────────────────────────
-// FILTER LOGIC
-// ──────────────────────────────────────────────
-function filterData(from, to) {
-  filtered = ALL_DATA.filter(d => d.date >= from && d.date <= to);
-}
+// ══════════════════════════════════════════════════════════════════════════════
+// STATE & LOGIC
+// ══════════════════════════════════════════════════════════════════════════════
+let currentFilter = 'all';
+let barChart=null, donut=null, capChart=null;
 
-function setPreset(preset) {
-  currentPreset = preset;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+n.toFixed(2);
+const pct=n=>n.toFixed(1)+'%';
 
-  let from, to, label;
-  switch(preset) {
-    case 'april':
-      from = '2026-04-01'; to = '2026-04-30';
-      label = 'Abril 2026 — Sin datos de ventas (fase startup)';
-      break;
-    case 'may':
-      from = '2026-05-01'; to = '2026-05-31';
-      label = 'Mayo 2026';
-      break;
-    case 'june':
-      from = '2026-06-01'; to = '2026-06-30';
-      label = 'Junio 2026';
-      break;
-    default:
-      from = '2026-04-01'; to = '2026-06-30';
-      label = 'Todo (Abril–Junio 2026)';
+function getFiltered(){
+  const last=ALL_DATA[ALL_DATA.length-1].date;
+  if(currentFilter==='today') return ALL_DATA.filter(d=>d.date===last);
+  if(currentFilter==='last7'){const c=new Date(last);c.setDate(c.getDate()-6);return ALL_DATA.filter(d=>new Date(d.date)>=c);}
+  if(currentFilter==='mtd-jun') return ALL_DATA.filter(d=>d.mo===6);
+  if(currentFilter==='mtd-may') return ALL_DATA.filter(d=>d.mo===5);
+  if(currentFilter==='custom'){
+    const f=new Date($('fromDate').value), t=new Date($('toDate').value);
+    return ALL_DATA.filter(d=>{const dt=new Date(d.date);return dt>=f&&dt<=t;});
   }
-  document.getElementById('dateFrom').value = from;
-  document.getElementById('dateTo').value   = to;
-  document.getElementById('period-label').textContent = '📊 Resumen del Período — ' + label;
-  filterData(from, to);
+  return ALL_DATA;
+}
+function agg(days){
+  if(!days.length) return{orders:0,shipped:0,pending:0,revenue:0,fees:0,net:0,bestDay:null};
+  return{
+    orders:days.reduce((s,d)=>s+d.orders,0),
+    shipped:days.reduce((s,d)=>s+d.shipped,0),
+    pending:days.reduce((s,d)=>s+d.pending,0),
+    revenue:days.reduce((s,d)=>s+d.revenue,0),
+    fees:days.reduce((s,d)=>s+d.fees,0),
+    net:days.reduce((s,d)=>s+d.net,0),
+    bestDay:days.reduce((b,d)=>(!b||d.net>b.net)?d:b,null),
+  };
+}
+function setF(type){
+  currentFilter=type;
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('active'));
+  const btn=document.querySelector(`.pbtn[onclick="setF('${type}')"]`);
+  if(btn) btn.classList.add('active');
   render();
 }
+function pilLabel(days){
+  if(!days.length) return 'Sin datos';
+  const ds=days.map(d=>d.date).sort();
+  const f=ds[0].slice(5).replace('-','/'), t=ds[ds.length-1].slice(5).replace('-','/');
+  return f===t?`📅 ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
+}
+function rcls(roi){return roi>=40?'rgn':roi>=20?'roj':'rrd';}
+function rbg(roi){return roi>=40?'#16a34a':roi>=20?'#d97706':'#dc2626';}
 
-function applyCustomRange() {
-  const from = document.getElementById('dateFrom').value;
-  const to   = document.getElementById('dateTo').value;
-  if (!from || !to) return;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('period-label').textContent = '📊 Rango personalizado: ' + from + ' → ' + to;
-  filterData(from, to);
-  render();
+// KPIs
+function renderKPIs(days){
+  const a=agg(days);
+  $('k-ord').textContent=a.orders;
+  $('k-ord-s').textContent=`${a.shipped} shipped · ${a.pending} pending`;
+  $('k-rev').textContent=fmt(a.revenue);
+  $('k-fee').textContent=fmt(a.fees);
+  $('k-fee-r').textContent=a.revenue>0?pct(a.fees/a.revenue*100)+' fee rate prom.':'—';
+  $('k-net').textContent=fmt(a.net);
+  $('k-net-m').textContent=a.revenue>0?pct(a.net/a.revenue*100)+' del total':'—';
+  $('k-tkt').textContent=a.orders>0?fmt(a.revenue/a.orders):'$0.00';
+  $('k-days').textContent=days.length;
+  $('k-days-s').textContent=`en período · ${a.orders} órdenes`;
+  $('ppill').textContent=pilLabel(days);
 }
 
-// ──────────────────────────────────────────────
-// RENDER
-// ──────────────────────────────────────────────
-function fmt(n)   { return '$' + n.toFixed(2); }
-function fmtK(n)  { return n >= 1000 ? '$' + (n/1000).toFixed(1) + 'K' : fmt(n); }
-function pct(n)   { return n.toFixed(1) + '%'; }
-
-function render() {
-  renderKPIs();
-  renderCharts();
-  renderTable();
+// Ops Table
+function renderOps(days){
+  const a=agg(days);
+  $('ttitle').textContent=days.length===1?days[0].date:`${days.length} días`;
+  $('opsBody').innerHTML=!days.length
+    ?'<tr><td colspan="13" style="text-align:center;color:#94a3b8;padding:20px">Sin datos para el período seleccionado</td></tr>'
+    :days.map(d=>{
+      const best=a.bestDay&&d.date===a.bestDay.date;
+      const mg=d.revenue>0?(d.net/d.revenue*100):0;
+      const fcls=d.feeRate>=30?'brd':d.feeRate>=20?'boj':'bgn';
+      return`<tr class="${best?'bday':''}">
+        <td>${best?'⭐ ':''}${d.date}</td><td>${d.dow}</td><td>${d.month}</td>
+        <td>${d.orders}</td><td>${d.shipped}</td><td>${d.pending||0}</td>
+        <td><strong>${fmt(d.revenue)}</strong></td><td>${fmt(d.fees)}</td>
+        <td><span class="badge ${fcls}">${pct(d.feeRate)}</span></td>
+        <td><strong style="color:#16a34a">${fmt(d.net)}</strong></td>
+        <td>${pct(mg)}</td><td>${d.invAvail}</td>
+        <td style="color:#64748b;font-size:11px">${d.notes}</td>
+      </tr>`;
+    }).join('');
 }
 
-function renderKPIs() {
-  if (filtered.length === 0) {
-    ['orders','revenue','net','ticket','feerate'].forEach(k => {
-      document.getElementById('kpi-'+k).textContent = '—';
-      document.getElementById('kpi-'+k+'-sub').textContent = 'Sin datos';
-    });
-    return;
-  }
-  const totalOrders   = filtered.reduce((s,d) => s + d.orders, 0);
-  const totalShipped  = filtered.reduce((s,d) => s + d.shipped, 0);
-  const totalCancelled= filtered.reduce((s,d) => s + d.cancelled, 0);
-  const totalRevenue  = filtered.reduce((s,d) => s + d.revenue, 0);
-  const totalFees     = filtered.reduce((s,d) => s + d.fees, 0);
-  const totalNet      = filtered.reduce((s,d) => s + d.net, 0);
-  const avgTicket     = totalShipped > 0 ? totalRevenue / totalShipped : 0;
-  const avgFeeRate    = totalRevenue > 0 ? (totalFees / totalRevenue) * 100 : 0;
-  const bestDay       = filtered.reduce((best, d) => d.revenue > best.revenue ? d : best, filtered[0]);
-
-  document.getElementById('kpi-orders').textContent     = totalOrders;
-  document.getElementById('kpi-orders-sub').textContent = `Enviadas: ${totalShipped} · Canceladas: ${totalCancelled}`;
-
-  document.getElementById('kpi-revenue').textContent     = fmtK(totalRevenue) + ' CAD';
-  document.getElementById('kpi-revenue-sub').textContent = `Fees: ${fmt(totalFees)} CAD`;
-
-  const netEl = document.getElementById('kpi-net');
-  netEl.textContent    = fmtK(totalNet) + ' CAD';
-  netEl.className      = 'kpi-value ' + (totalNet >= 0 ? 'val-green' : 'val-red');
-  document.getElementById('kpi-net-sub').textContent = `${pct(totalRevenue > 0 ? (totalNet/totalRevenue)*100 : 0)} del revenue`;
-
-  document.getElementById('kpi-ticket').textContent     = fmt(avgTicket) + ' CAD';
-  document.getElementById('kpi-ticket-sub').textContent = `${totalShipped} órdenes enviadas`;
-
-  document.getElementById('kpi-feerate').textContent     = pct(avgFeeRate);
-  document.getElementById('kpi-feerate-sub').textContent = `Mejor día: ${bestDay.date.slice(5)}`;
-}
-
-function renderCharts() {
-  // Bar chart
-  const labels   = filtered.map(d => d.date.slice(5) + ' ' + d.month.slice(0,3));
-  const revenues = filtered.map(d => d.revenue);
-  const nets     = filtered.map(d => d.net);
-
-  document.getElementById('chart-sub-1').textContent =
-    filtered.length + ' día(s) · ' + (filtered.length > 0 ? filtered[0].date + ' → ' + filtered[filtered.length-1].date : '');
-
-  if (barChartInst) barChartInst.destroy();
-  const ctx1 = document.getElementById('barChart').getContext('2d');
-  barChartInst = new Chart(ctx1, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        { label: 'Revenue Bruto', data: revenues, backgroundColor: 'rgba(255,153,0,0.85)', borderRadius: 4 },
-        { label: 'Resultado Neto', data: nets, backgroundColor: 'rgba(34,197,94,0.85)', borderRadius: 4 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'top', labels: { font: { size: 10 } } },
-        tooltip: { callbacks: { label: c => ' $' + c.parsed.y.toFixed(2) + ' CAD' } } },
-      scales: {
-        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: v => '$'+v, font: { size: 10 } } },
-        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
-      }
-    }
-  });
-
-  // Donut chart
-  const totalFees = filtered.reduce((s,d) => s+d.fees, 0);
-  const totalNet  = filtered.reduce((s,d) => s+d.net, 0);
-
-  if (donutChartInst) donutChartInst.destroy();
-  const ctx2 = document.getElementById('donutChart').getContext('2d');
-  donutChartInst = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-      labels: ['Fees Amazon', 'Resultado Neto'],
-      datasets: [{
-        data: [Math.max(0, totalFees), Math.max(0, totalNet)],
-        backgroundColor: ['rgba(239,68,68,0.8)', 'rgba(34,197,94,0.8)'],
-        borderWidth: 2, borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 12 } },
-        tooltip: { callbacks: { label: c => ' $' + c.parsed.toFixed(2) + ' CAD' } }
-      },
-      cutout: '65%'
-    }
-  });
-}
-
-function renderTable() {
-  const tbody = document.getElementById('table-body');
-  document.getElementById('table-count').textContent = filtered.length + ' día(s)';
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10" class="no-data">
-      <div class="no-data-icon">📭</div>
-      Sin datos para el período seleccionado.
-    </td></tr>`;
-    return;
-  }
-
-  const bestIdx = filtered.reduce((bi, d, i) => d.revenue > filtered[bi].revenue ? i : bi, 0);
-
-  tbody.innerHTML = filtered.map((d, i) => {
-    const isBest = i === bestIdx;
-    const cancelBadge = d.cancelled > 0
-      ? `<span class="pill pill-red">${d.cancelled} cancel.</span> ` : '';
-    const pendBadge  = d.pending > 0
-      ? `<span class="pill pill-orange">${d.pending} pend.</span> ` : '';
-    const feeClass   = d.feeRate > 30 ? 'val-orange' : 'val-green';
-    return `<tr class="${isBest ? 'best-row' : ''}">
-      <td><strong>${d.date}</strong></td>
-      <td>${d.dow}</td>
-      <td>${d.month}</td>
-      <td>${d.orders} ${cancelBadge}${pendBadge}</td>
-      <td><strong>${fmt(d.revenue)}</strong></td>
-      <td style="color:#b45309;">${fmt(d.fees)}</td>
-      <td><span class="pill pill-green">${fmt(d.net)}</span></td>
-      <td class="${feeClass}">${pct(d.feeRate)}</td>
-      <td style="color:#64748b;">${fmt(d.mtdRevenue)}</td>
-      <td>${d.invAvail}u</td>
+// SKU Table
+function renderSKU(){
+  $('skuBody').innerHTML=SKUS.map((s,i)=>{
+    const fee=s.avgSalePrice*s.feeRate;
+    const netf=s.avgSalePrice-fee;
+    const profit=netf-s.costCAD;
+    const roi=s.costCAD>0?(profit/s.costCAD*100):0;
+    const margin=s.avgSalePrice>0?(profit/s.avgSalePrice*100):0;
+    const bw=Math.min(100,Math.max(0,roi)).toFixed(0);
+    return`<tr>
+      <td><code style="font-size:11px;color:#475569">${s.sku}</code></td>
+      <td style="font-weight:600;max-width:170px">${s.name}</td>
+      <td><span class="badge bbl" style="font-size:10px">${s.asin}</span></td>
+      <td><strong>${fmt(s.avgSalePrice)}</strong></td>
+      <td><input type="number" class="sku-inp" value="${s.costCAD.toFixed(2)}" step="0.5" min="0" onchange="updateCost(${i},this.value)" title="Edita para recalcular ROI"></td>
+      <td style="color:#dc2626">${fmt(fee)}</td>
+      <td style="color:#16a34a;font-weight:600">${fmt(netf)}</td>
+      <td style="color:${profit>=0?'#16a34a':'#dc2626'};font-weight:600">${fmt(profit)}</td>
+      <td><div class="rbar"><div class="rbg"><div class="rfill" style="width:${bw}%;background:${rbg(roi)}"></div></div><span class="rval ${rcls(roi)}">${pct(roi)}</span></div></td>
+      <td><span class="rval ${rcls(margin)}">${pct(margin)}</span></td>
     </tr>`;
   }).join('');
 }
+function updateCost(i,v){SKUS[i].costCAD=parseFloat(v)||0;renderSKU();}
 
-// ──────────────────────────────────────────────
-// INIT
-// ──────────────────────────────────────────────
-render();
+// Monthly
+function renderMonthly(){
+  const may=agg(ALL_DATA.filter(d=>d.mo===5));
+  const jun=agg(ALL_DATA.filter(d=>d.mo===6));
+  $('may-o').textContent=may.orders; $('may-r').textContent=fmt(may.revenue);
+  $('may-f').textContent=fmt(may.fees); $('may-n').textContent=fmt(may.net);
+  $('jun-o').textContent=jun.orders; $('jun-r').textContent=fmt(jun.revenue);
+  $('jun-f').textContent=fmt(jun.fees); $('jun-n').textContent=fmt(jun.net);
+}
+
+// Charts
+function renderBar(days){
+  const ctx=$('barChart').getContext('2d');
+  if(barChart) barChart.destroy();
+  barChart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:days.map(d=>d.date.slice(5)),
+      datasets:[
+        {label:'Ingresos',data:days.map(d=>d.revenue),backgroundColor:'rgba(59,130,246,.7)',borderRadius:4},
+        {label:'Neto',    data:days.map(d=>d.net),    backgroundColor:'rgba(22,163,74,.8)', borderRadius:4},
+        {label:'Fees',    data:days.map(d=>d.fees),   backgroundColor:'rgba(220,38,38,.6)', borderRadius:4},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:11}}}},
+      scales:{
+        x:{ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},
+        y:{ticks:{callback:v=>'$'+v,font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},
+      }
+    }
+  });
+}
+function renderDonut(days){
+  const a=agg(days);
+  const ctx=$('donutChart').getContext('2d');
+  if(donut) donut.destroy();
+  donut=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:['Neto','Fees Amazon'],datasets:[{data:[Math.max(0,a.net),Math.max(0,a.fees)],backgroundColor:['#16a34a','#dc2626'],borderWidth:2}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      cutout:'65%',
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)}`}},
+      }
+    }
+  });
+}
+function renderCapital(){
+  if(capChart) return;
+  const ctx=$('capitalChart').getContext('2d');
+  capChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:['Comprometido','Disponible','En tránsito'],datasets:[{data:[1156.77,6.90,47.24],backgroundColor:['#FF9900','#16a34a','#3b82f6'],borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)}`}}}}
+  });
+}
+
+// Last updated badge
+function renderDates(){
+  const d=new Date(LAST_UPDATED);
+  $('lastUpdated').textContent=d.toLocaleDateString('es-CA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  $('liveBadge').textContent='● Actualizado '+d.toLocaleDateString('es-CA',{day:'2-digit',month:'short'});
+}
+
+// MAIN
+function render(){
+  const days=getFiltered();
+  renderKPIs(days);
+  renderOps(days);
+  renderBar(days);
+  renderDonut(days);
+  renderSKU();
+  renderMonthly();
+  renderCapital();
+  renderDates();
+}
+
+document.addEventListener('DOMContentLoaded',render);
 </script>
 </body>
 </html>
