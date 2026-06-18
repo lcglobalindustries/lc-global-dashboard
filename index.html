@@ -57,7 +57,7 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,-apple-system,sans-seri
 .ksub{font-size:11px;color:#94a3b8;margin-top:4px}
 
 /* CHARTS */
-.crow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20py}
+.crow{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
 .ccard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .ccard h4{font-size:12px;font-weight:700;color:#475569;margin-bottom:12px}
 .cwrap{position:relative;height:185px}
@@ -327,7 +327,7 @@ const fmt=n=>'$'+n.toFixed(2);
 const pct=n=>n.toFixed(1)+'%';
 
 function getFiltered(){
-  const last=ACL_DATA[ALL_DATA.length-1].date;
+  const last=ALL_DATA[ALL_DATA.length-1].date;
   if(currentFilter==='today') return ALL_DATA.filter(d=>d.date===last);
   if(currentFilter==='last7'){const c=new Date(last);c.setDate(c.getDate()-6);return ALL_DATA.filter(d=>new Date(d.date)>=c);}
   if(currentFilter==='mtd-jun') return ALL_DATA.filter(d=>d.mo===6);
