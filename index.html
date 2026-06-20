@@ -181,8 +181,8 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 </div>
 
 <!-- TABLA OPERACIONES -->
-<div class="stitle">🧾 Operaciones Dia a Dia</div>
- <div class="card mb20">
+<div class="stitle">🧾 Operaciones Día a Día</div>
+<div class="card mb20">
   <div class="chead"><span>Detalle — <span id="ttitle">período completo</span></span><span class="badge boj" style="margin-left:auto">⭐ = mejor día</span></div>
   <table>
     <thead><tr>
@@ -239,17 +239,17 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 <div class="stitle">💰 Capital & Liquidez — Snapshot</div>
 <div class="cgrid mb20" style="margin-bottom:12px">
   <div class="capcard"><div class="caplbl">Capital Total Socios</div><div class="capval" style="color:#0f172a">$5,019.44</div><div class="capsub">CAD total</div></div>
-  <div class="capcard"><div class="caplbl">Capital Comprometido</div><div class="capval" style="color:#d97706">$612.00</div><div class="capsub">en inventario FBA</div></div>
-  <div class="capcard"><div class="caplbl">Capital Líquido</div><div class="capval" style="color:#2563eb">$4,407.44</div><div class="capsub">disponible socios</div></div>
- </div>
+  <div class="capcard"><div class="caplbl">Capital Comprometido</div><div class="capval" style="color:#d97706">$598.00</div><div class="capsub">en inventario FBA</div></div>
+  <div class="capcard"><div class="caplbl">Capital Líquido</div><div class="capval" style="color:#2563eb">$4,421.44</div><div class="capsub">disponible socios</div></div>
+</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
   <div class="card" style="margin-bottom:0">
     <div class="chead">🥧 Distribución Capital en Inventario</div>
     <div class="donutwrap" style="padding:14px">
       <div class="dwrap"><canvas id="capitalChart"></canvas></div>
       <ul class="dleg">
-        <li><span class="dot" style="background:#FF9900"></span>Comprometido $612.00 (12.2%)</li>
-        <li><span class="dot" style="background:#16a34a"></span>Disponible $4,407.44 (87.8%)</li>
+        <li><span class="dot" style="background:#FF9900"></span>Comprometido $598.00 (11.9%)</li>
+        <li><span class="dot" style="background:#16a34a"></span>Disponible $4,421.44 (88.1%)</li>
         <li><span class="dot" style="background:#3b82f6"></span>En tránsito $0.00 (0%)</li>
       </ul>
     </div>
@@ -257,7 +257,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
   <div style="display:flex;flex-direction:column;gap:12px">
     <div class="liqalert">
       <div class="caplbl">Índice de Liquidez Operativa</div>
-      <div class="liqpct">87.8%</div>
+      <div class="liqpct">88.1%</div>
       <div class="liqstatus">✅ LIQUIDEZ OK · Capital mayormente disponible · Inventario bajo</div>
     </div>
     <div class="pgrid">
@@ -268,15 +268,15 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 </div>
 
 <!-- INVENTARIO SNAPSHOT -->
-<div class="stitle">🏭 Inventario FBA — Snapshot Jun 19</div>
+<div class="stitle">🏭 Inventario FBA — Snapshot Jun 20</div>
 <div class="card mb20">
   <table>
     <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
     <tbody>
       <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge brd">🔴 SIN STOCK</span></td></tr>
-      <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>2</strong></td><td>1</td><td>0</td><td>3</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
+      <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>2</strong></td><td>0</td><td>0</td><td>2</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
       <tr><td>QW-QWZ0-LSBG</td><td>Cruz de Malta 2.2lb Pack of 2</td><td>B07CP1QFY9</td><td><strong>2</strong></td><td>0</td><td>0</td><td>2</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
-      <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>0</strong></td><td>1</td><td>0</td><td>22</td><td><span class="badge bgn">📦 22u EN FC</span></td></tr>
+      <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>3</strong></td><td>1</td><td>16</td><td>22</td><td><span class="badge bgn">✅ 3u DISP · 16u INBOUND</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -293,7 +293,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 // ALL_DATA — actualizado automáticamente cada 8am por la rutina de Claude
 // LAST_UPDATED — timestamp de la última publicación
 // ══════════════════════════════════════════════════════════════════════════════
-const LAST_UPDATED = "2026-06-19T08:00:00-04:00";
+const LAST_UPDATED = "2026-06-20T08:00:00-04:00";
 
 const ALL_DATA = [
   { date:'2026-05-19', dow:'Martes',    month:'Mayo',  mo:5, orders:1, shipped:1, pending:0, cancelled:0, revenue:52.02,  fees:17.16, net:27.91,  feeRate:33.0,  invAvail:54, notes:'WR-7EP2-333F Knorr Caldo FBA' },
@@ -308,6 +308,7 @@ const ALL_DATA = [
   { date:'2026-06-17', dow:'Miércoles', month:'Junio', mo:6, orders:3, shipped:2, pending:1, cancelled:0, revenue:77.07,  fees:21.73, net:55.34,  feeRate:28.2,  invAvail:5,  notes:'Toronto+Calgary shipped · 1 pending · San Ignacio 3u · Cruz Malta 2u · Knorr 22u en sistema FBA' },
   { date:'2026-06-18', dow:'Jueves',    month:'Junio', mo:6, orders:1, shipped:1, pending:0, cancelled:0, revenue:30.60,  fees:10.03, net:20.57,  feeRate:32.8,  invAvail:5,  notes:'Rosamonte $30.60 FBA shipped. Fees financieros confirmados.' },
   { date:'2026-06-19', dow:'Viernes',   month:'Junio', mo:6, orders:2, shipped:0, pending:2, cancelled:0, revenue:45.00,  fees:12.70, net:32.30,  feeRate:28.2,  invAvail:4,  notes:'2 órdenes Pending · Cruz Malta 2u · San Ignacio 2u · Knorr 22u en sistema FBA · Rosamonte sin stock' },
+  { date:'2026-06-20', dow:'Sábado',    month:'Junio', mo:6, orders:0, shipped:0, pending:0, cancelled:0, revenue:0.00,   fees:0.00,  net:0.00,   feeRate:0.0,   invAvail:7,  notes:'Sin órdenes hoy  · Knorr 3u disp+16u inbound · San Ignacio 2u · Cruz Malta 2u · Rosamonte 0u sin stock' },
 ];
 
 // SKUs activos — costCAD editable en la interfaz
@@ -325,11 +326,11 @@ let currentFilter = 'all';
 let barChart=null, donut=null, capChart=null;
 
 const $=id=>document.getElementById(id);
-const fmt=n=>'$'+n.toFixed(2);
+const fmt=n=>$'+n.toFixed(2);
 const pct=n=>n.toFixed(1)+'%';
 
 function getFiltered(){
-  const last=ALL_DATA[ALL_DATA.length-1].date;
+  const last=AUL_DATA[ALL_DATA.length-1].date;
   if(currentFilter==='today') return ALL_DATA.filter(d=>d.date===last);
   if(currentFilter==='last7'){const c=new Date(last);c.setDate(c.getDate()-6);return ALL_DATA.filter(d=>new Date(d.date)>=c);}
   if(currentFilter==='mtd-jun') return ALL_DATA.filter(d=>d.mo===6);
@@ -363,7 +364,7 @@ function pilLabel(days){
   if(!days.length) return 'Sin datos';
   const ds=days.map(d=>d.date).sort();
   const f=ds[0].slice(5).replace('-','/'), t=ds[ds.length-1].slice(5).replace('-','/');
-  return f===t?`0��� ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
+  return f===t?`📅 ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
 }
 function rcls(roi){return roi>=40?'rgn':roi>=20?'roj':'rrd';}
 function rbg(roi){return roi>=40?'#16a34a':roi>=20?'#d97706':'#dc2626';}
@@ -474,7 +475,7 @@ function renderDonut(days){
     data:{labels:['Neto','Fees Amazon'],datasets:[{data:[Math.max(0,a.net),Math.max(0,a.fees)],backgroundColor:['#16a34a','#dc2626'],borderWidth:2}]},
     options:{
       responsive:true,maintainAspectRatio:false,
-      cutout:'65%',
+      cutout:'64%',
       plugins:{
         legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
         tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)}`}},
