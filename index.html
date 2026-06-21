@@ -239,8 +239,8 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 <div class="stitle">💰 Capital & Liquidez — Snapshot</div>
 <div class="cgrid mb20" style="margin-bottom:12px">
   <div class="capcard"><div class="caplbl">Capital Total Socios</div><div class="capval" style="color:#0f172a">$5,019.44</div><div class="capsub">CAD total</div></div>
-  <div class="capcard"><div class="caplbl">Capital Comprometido</div><div class="capval" style="color:#d97706">$598.00</div><div class="capsub">en inventario FBA</div></div>
-  <div class="capcard"><div class="caplbl">Capital Líquido</div><div class="capval" style="color:#2563eb">$4,421.44</div><div class="capsub">disponible socios</div></div>
+  <div class="capcard"><div class="caplbl">Capital Comprometido</div><div class="capval" style="color:#d97706">$574.00</div><div class="capsub">en inventario FBA</div></div>
+  <div class="capcard"><div class="caplbl">Capital Líquido</div><div class="capval" style="color:#2563eb">$4,445.44</div><div class="capsub">disponible socios</div></div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
   <div class="card" style="margin-bottom:0">
@@ -271,7 +271,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 <div class="stitle">🏭 Inventario FBA — Snapshot Jun 20</div>
 <div class="card mb20">
   <table>
-    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
     <tbody>
       <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge brd">🔴 SIN STOCK</span></td></tr>
       <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>2</strong></td><td>0</td><td>0</td><td>2</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
@@ -293,7 +293,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 // ALL_DATA — actualizado automáticamente cada 8am por la rutina de Claude
 // LAST_UPDATED — timestamp de la última publicación
 // ══════════════════════════════════════════════════════════════════════════════
-const LAST_UPDATED = "2026-06-20T08:00:00-04:00";
+const LAST_UPDATED = "2026-06-21T08:00:00-04:00";
 
 const ALL_DATA = [
   { date:'2026-05-19', dow:'Martes',    month:'Mayo',  mo:5, orders:1, shipped:1, pending:0, cancelled:0, revenue:52.02,  fees:17.16, net:27.91,  feeRate:33.0,  invAvail:54, notes:'WR-7EP2-333F Knorr Caldo FBA' },
@@ -308,7 +308,8 @@ const ALL_DATA = [
   { date:'2026-06-17', dow:'Miércoles', month:'Junio', mo:6, orders:3, shipped:2, pending:1, cancelled:0, revenue:77.07,  fees:21.73, net:55.34,  feeRate:28.2,  invAvail:5,  notes:'Toronto+Calgary shipped · 1 pending · San Ignacio 3u · Cruz Malta 2u · Knorr 22u en sistema FBA' },
   { date:'2026-06-18', dow:'Jueves',    month:'Junio', mo:6, orders:1, shipped:1, pending:0, cancelled:0, revenue:30.60,  fees:10.03, net:20.57,  feeRate:32.8,  invAvail:5,  notes:'Rosamonte $30.60 FBA shipped. Fees financieros confirmados.' },
   { date:'2026-06-19', dow:'Viernes',   month:'Junio', mo:6, orders:2, shipped:0, pending:2, cancelled:0, revenue:45.00,  fees:12.70, net:32.30,  feeRate:28.2,  invAvail:4,  notes:'2 órdenes Pending · Cruz Malta 2u · San Ignacio 2u · Knorr 22u en sistema FBA · Rosamonte sin stock' },
-  { date:'2026-06-20', dow:'Sábado',    month:'Junio', mo:6, orders:0, shipped:0, pending:0, cancelled:0, revenue:0.00,   fees:0.00,  net:0.00,   feeRate:0.0,   invAvail:7,  notes:'Sin órdenes hoy  · Knorr 3u disp+16u inbound · San Ignacio 2u · Cruz Malta 2u · Rosamonte 0u sin stock' },
+  { date:'2026-06-20', dow:'Sábado',    month:'Junio', mo:6, orders:0, shipped:0, pending:0, cancelled:0, revenue:0.00,   fees:0.00,  net:0.00,   feeRate:0.0,   invAvail:7,  notes:'Sin órdenes hoy · Knorr 3u disp+16u inbound · San Ignacio 2u · Cruz Malta 2u · Rosamonte 0u sin stock' },
+  { date:'2026-06-21', dow:'Domingo',   month:'Junio', mo:6, orders:1, shipped:0, pending:1, cancelled:0, revenue:32.27,  fees:9.10,  net:23.17,  feeRate:28.2,  invAvail:22, notes:'San Ignacio 1u pendiente $32.27 CAD · Knorr 19u disp (inbound recibido) · Cruz Malta 2u · Rosamonte sin stock' },
 ];
 
 // SKUs activos — costCAD editable en la interfaz
@@ -326,11 +327,11 @@ let currentFilter = 'all';
 let barChart=null, donut=null, capChart=null;
 
 const $=id=>document.getElementById(id);
-const fmt=n=>$'+n.toFixed(2);
+const fmt=n=>'$'+n.toFixed(2);
 const pct=n=>n.toFixed(1)+'%';
 
 function getFiltered(){
-  const last=AUL_DATA[ALL_DATA.length-1].date;
+  const last=ALL_DATA[ALL_DATA.length-1].date;
   if(currentFilter==='today') return ALL_DATA.filter(d=>d.date===last);
   if(currentFilter==='last7'){const c=new Date(last);c.setDate(c.getDate()-6);return ALL_DATA.filter(d=>new Date(d.date)>=c);}
   if(currentFilter==='mtd-jun') return ALL_DATA.filter(d=>d.mo===6);
@@ -475,7 +476,7 @@ function renderDonut(days){
     data:{labels:['Neto','Fees Amazon'],datasets:[{data:[Math.max(0,a.net),Math.max(0,a.fees)],backgroundColor:['#16a34a','#dc2626'],borderWidth:2}]},
     options:{
       responsive:true,maintainAspectRatio:false,
-      cutout:'64%',
+      cutout:'65%',
       plugins:{
         legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
         tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)}`}},
