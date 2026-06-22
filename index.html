@@ -19,7 +19,7 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,-apple-system,sans-seri
 
 /* FILTER BAR */
 .fbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.flabel{font-size:11px;font-weight:600;color:#64748J;text-transform:uppercase;letter-spacing:.8px;margin-right:2px}
+.flabel{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-right:2px}
 .pbtn{background:#f1f5f9;border:1px solid #e2e8f0;color:#475569;padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;transition:all .15s;font-weight:500}
 .pbtn:hover{background:#fef3c7;border-color:#FF9900;color:#92400e}
 .pbtn.active{background:#FF9900;border-color:#FF9900;color:#000;font-weight:700}
@@ -271,7 +271,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 <div class="stitle">🏭 Inventario FBA — Snapshot Jun 20</div>
 <div class="card mb20">
   <table>
-    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+    <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
     <tbody>
       <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge brd">🔴 SIN STOCK</span></td></tr>
       <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>2</strong></td><td>0</td><td>0</td><td>2</td><td><span class="badge boj">⚠️ BAJO</span></td></tr>
@@ -366,7 +366,7 @@ function pilLabel(days){
   if(!days.length) return 'Sin datos';
   const ds=days.map(d=>d.date).sort();
   const f=ds[0].slice(5).replace('-','/'), t=ds[ds.length-1].slice(5).replace('-','/');
-  return f===t?`韓� ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
+  return f===t?`0��� ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
 }
 function rcls(roi){return roi>=40?'rgn':roi>=20?'roj':'rrd';}
 function rbg(roi){return roi>=40?'#16a34a':roi>=20?'#d97706':'#dc2626';}
