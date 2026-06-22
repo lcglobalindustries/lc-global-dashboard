@@ -19,7 +19,7 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,-apple-system,sans-seri
 
 /* FILTER BAR */
 .fbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.flabel{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-right:2px}
+.flabel{font-size:11px;font-weight:600;color:#64748J;text-transform:uppercase;letter-spacing:.8px;margin-right:2px}
 .pbtn{background:#f1f5f9;border:1px solid #e2e8f0;color:#475569;padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;transition:all .15s;font-weight:500}
 .pbtn:hover{background:#fef3c7;border-color:#FF9900;color:#92400e}
 .pbtn.active{background:#FF9900;border-color:#FF9900;color:#000;font-weight:700}
@@ -293,7 +293,7 @@ tbody tr.bday{background:linear-gradient(90deg,#fffbeb,#fff)}
 // ALL_DATA — actualizado automáticamente cada 8am por la rutina de Claude
 // LAST_UPDATED — timestamp de la última publicación
 // ══════════════════════════════════════════════════════════════════════════════
-const LAST_UPDATED = "2026-06-21T08:00:00-04:00";
+const LAST_UPDATED = "2026-06-22T08:07:00-04:00";
 
 const ALL_DATA = [
   { date:'2026-05-19', dow:'Martes',    month:'Mayo',  mo:5, orders:1, shipped:1, pending:0, cancelled:0, revenue:52.02,  fees:17.16, net:27.91,  feeRate:33.0,  invAvail:54, notes:'WR-7EP2-333F Knorr Caldo FBA' },
@@ -310,6 +310,7 @@ const ALL_DATA = [
   { date:'2026-06-19', dow:'Viernes',   month:'Junio', mo:6, orders:2, shipped:0, pending:2, cancelled:0, revenue:45.00,  fees:12.70, net:32.30,  feeRate:28.2,  invAvail:4,  notes:'2 órdenes Pending · Cruz Malta 2u · San Ignacio 2u · Knorr 22u en sistema FBA · Rosamonte sin stock' },
   { date:'2026-06-20', dow:'Sábado',    month:'Junio', mo:6, orders:0, shipped:0, pending:0, cancelled:0, revenue:0.00,   fees:0.00,  net:0.00,   feeRate:0.0,   invAvail:7,  notes:'Sin órdenes hoy · Knorr 3u disp+16u inbound · San Ignacio 2u · Cruz Malta 2u · Rosamonte 0u sin stock' },
   { date:'2026-06-21', dow:'Domingo',   month:'Junio', mo:6, orders:1, shipped:0, pending:1, cancelled:0, revenue:32.27,  fees:9.10,  net:23.17,  feeRate:28.2,  invAvail:22, notes:'San Ignacio 1u pendiente $32.27 CAD · Knorr 19u disp (inbound recibido) · Cruz Malta 2u · Rosamonte sin stock' },
+  { date:'2026-06-22', dow:'Lunes',    month:'Junio', mo:6, orders:1, shipped:1, pending:0, cancelled:0, revenue:54.52,  fees:10.58, net:43.94,  feeRate:19.4,  invAvail:22, notes:'WR-7EP2-333F x1 $54.52 FBA · Knorr 19u · San Ignacio 1u · Cruz Malta 2u · Rosamonte 0u' },
 ];
 
 // SKUs activos — costCAD editable en la interfaz
@@ -365,7 +366,7 @@ function pilLabel(days){
   if(!days.length) return 'Sin datos';
   const ds=days.map(d=>d.date).sort();
   const f=ds[0].slice(5).replace('-','/'), t=ds[ds.length-1].slice(5).replace('-','/');
-  return f===t?`📅 ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
+  return f===t?`韓� ${f} · 1 día`:`📅 ${f} – ${t} · ${days.length} días`;
 }
 function rcls(roi){return roi>=40?'rgn':roi>=20?'roj':'rrd';}
 function rbg(roi){return roi>=40?'#16a34a':roi>=20?'#d97706':'#dc2626';}
