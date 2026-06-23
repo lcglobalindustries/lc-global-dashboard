@@ -2,14 +2,14 @@
 {
   "name": "Lc Global Dashboard Ejecutivo",
   "schemaVersion": 1,
-  "description": "Dashboard ejecutivo LC Global Industries — Amazon FBA Canada. Incluye filtro de fechas, KPIs diarios y MTD, gráfico de evolución, tabla de operaciones, análisis de ROI REAL por SKU (costos verificados de facturas La Molienda + fees SP-API confirmados + $3/unidad transporte+prep), P&L Real con punto de equilibrio operativo (Jun 14), velocidad de venta real, comparativo mensual y snapshot de capital & liquidez."
+  "description": "Dashboard ejecutivo LC Global Industries â€” Amazon FBA Canada. Incluye filtro de fechas, KPIs diarios y MTD, grÃ¡fico de evoluciÃ³n, tabla de operaciones, anÃ¡lisis de ROI REAL por SKU (costos verificados de facturas La Molienda + fees SP-API confirmados + $3/unidad transporte+prep), P&L Real con punto de equilibrio operativo (Jun 14), velocidad de venta real, comparativo mensual y snapshot de capital & liquidez."
 }
 </script>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LC Global — Dashboard Ejecutivo</title>
+<title>LC Global â€” Dashboard Ejecutivo</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
 :root { color-scheme: light; }
@@ -310,7 +310,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="header-left">
     <div>
       <div class="header-logo">&#127464;&#127462; LC Global Industries Inc.</div>
-      <div class="header-sub">Dashboard Ejecutivo — Amazon FBA Canada</div>
+      <div class="header-sub">Dashboard Ejecutivo â€” Amazon FBA Canada</div>
     </div>
   </div>
   <div class="header-badge" id="liveBadge">&#9679; DATOS ACTUALIZADOS</div>
@@ -437,7 +437,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="card mb-20"><div class="card-title">Desglose Completo de Costos</div><table class="pnl-cost-table" id="pnlCostTable"></table></div>
 
   <div class="section-title" style="color:#15803d;">&#128302; An&#225;lisis Real de Rentabilidad &#8212; Datos 100% Verificados</div>
-  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API !�183; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
+  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API !Ž183; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
   <div class="sku-cards-grid" id="skuSummaryCards"></div>
   <div class="charts-row-2 mb-20">
     <div class="chart-card"><h4>ROI Real por SKU</h4><div class="chart-wrap-tall"><canvas id="roiCompareChart"></canvas></div></div>
@@ -739,7 +739,7 @@ function calcSKUStats(meta) {
 
 function renderSKUSummaryCards() {
   const container = $('skuSummaryCards');
-  container.innerHTML = REAE�SKU_META.map(meta => {
+  container.innerHTML = REAL_SKU_META.map(meta => {
     const s = calcSKUStats(meta);
     const roiColor = s.roi >= 50 ? '#16a34a' : s.roi >= 30 ? '#d97706' : '#dc2626';
     const stockBadge = meta.stock === 0
@@ -826,7 +826,7 @@ function renderPerSaleTables() {
 
 function renderPnLSection() {
   const TOTAL_REVENUE   = 1085.54;
-  const AMAS�S_FEES     = 313.46;
+  const AMAZON_FEES     = 313.46;
   const COGS_SOLD       = 328.82;
   const FBA_INBOUND     = 129.55;
   const PREP_COST       = 27.00;
