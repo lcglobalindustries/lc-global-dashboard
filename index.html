@@ -2,14 +2,14 @@
 {
   "name": "Lc Global Dashboard Ejecutivo",
   "schemaVersion": 1,
-  "description": "Dashboard ejecutivo LC Global Industries â€” Amazon FBA Canada. Incluye filtro de fechas, KPIs diarios y MTD, grÃ¡fico de evoluciÃ³n, tabla de operaciones, anÃ¡lisis de ROI REAL por SKU (costos verificados de facturas La Molienda + fees SP-API confirmados + $3/unidad transporte+prep), P&L Real con punto de equilibrio operativo (Jun 14), velocidad de venta real, comparativo mensual y snapshot de capital & liquidez."
+  "description": "Dashboard ejecutivo LC Global Industries — Amazon FBA Canada. Incluye filtro de fechas, KPIs diarios y MTD, gráfico de evolución, tabla de operaciones, análisis de ROI REAL por SKU (costos verificados de facturas La Molienda + fees SP-API confirmados + $3/unidad transporte+prep), P&L Real con punto de equilibrio operativo (Jun 14), velocidad de venta real, comparativo mensual y snapshot de capital & liquidez."
 }
 </script>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LC Global â€” Dashboard Ejecutivo</title>
+<title>LC Global — Dashboard Ejecutivo</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
 :root { color-scheme: light; }
@@ -310,7 +310,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="header-left">
     <div>
       <div class="header-logo">&#127464;&#127462; LC Global Industries Inc.</div>
-      <div class="header-sub">Dashboard Ejecutivo â€” Amazon FBA Canada</div>
+      <div class="header-sub">Dashboard Ejecutivo — Amazon FBA Canada</div>
     </div>
   </div>
   <div class="header-badge" id="liveBadge">&#9679; DATOS ACTUALIZADOS</div>
@@ -418,12 +418,12 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="section-title">&#127981; Inventario FBA &#8212; Snapshot Jun 23</div>
   <div class="card mb-20">
     <table>
-      <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+      <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
       <tbody>
         <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>20</strong></td><td>0</td><td>0</td><td>20</td><td><span class="badge b-gn">&#9989; STOCK OK</span></td></tr>
         <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge b-rd">&#128680; AGOTADO &#8212; REPONER YA</span></td></tr>
         <tr><td>QW-QWZ0-LSBG</td><td>Cruz de Malta 2.2lb Pack of 2</td><td>B07CP1QFY9</td><td><strong>1</strong></td><td>0</td><td>0</td><td>1</td><td><span class="badge b-rd">&#128680; STOCK CR&#205;TICO &#8212; VENDER YA</span></td></tr>
-        <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>0</strong></td><td>1</td><td>0</td><td>1</td><td><span class="badge b-oj">&#9888;&#65039; STOCK BAJO</span></td></tr>
+        <tr><td>77-SMZ3-OXWC</td><td>San Ignacio Dulce de Leche 2-Pack</td><td>B0127SUHFK</td><td><strong>0</strong></td><td>1</td><td>0</td><td>1</td><td><span class="badge b-oj">&#9888+&#65039; STOCK BAJO</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -437,7 +437,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="card mb-20"><div class="card-title">Desglose Completo de Costos</div><table class="pnl-cost-table" id="pnlCostTable"></table></div>
 
   <div class="section-title" style="color:#15803d;">&#128302; An&#225;lisis Real de Rentabilidad &#8212; Datos 100% Verificados</div>
-  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API !Ž183; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
+  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API !�83; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
   <div class="sku-cards-grid" id="skuSummaryCards"></div>
   <div class="charts-row-2 mb-20">
     <div class="chart-card"><h4>ROI Real por SKU</h4><div class="chart-wrap-tall"><canvas id="roiCompareChart"></canvas></div></div>
@@ -446,7 +446,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="section-title">Desglose por Venta</div>
   <div id="perSaleSection"></div>
 
-  <div class="section-title">&#127919; Decisi&#243;n de Restok</div>
+  <div class="section-title">&#127919; Decisi&#243;n de Restock</div>
   <div class="decision-final-grid">
     <div class="dec-card gn"><div class="dec-icon">&#9989;</div><div class="dec-prod">Knorr Caldo Tomate 35.3 oz</div><div class="dec-label" style="color:#15803d;">REPONER</div><div class="dec-detail">ROI <strong>83%</strong><br>Costo total: $16.50+$3 = <strong>$19.50/u</strong><br>Stock 20u disponibles<br>Precio m&#237;n. para 30% ROI: <strong>$41+</strong></div></div>
     <div class="dec-card rd"><div class="dec-icon">&#128680;</div><div class="dec-prod">Rosamonte Yerba Mate 1kg</div><div class="dec-label" style="color:#dc2626;">VERIFICAR PRECIO ANTES</div><div class="dec-detail">ROI <strong>6.4%</strong> &#8212; casi sin margen<br>A $23.50 &#8594; <strong>p&#233;rdida de $0.06/u</strong><br>Precio m&#237;n. para 30% ROI: <strong>$27+</strong></div></div>
@@ -486,7 +486,7 @@ const SKUS = [
   { asin:'B002ZBBTLG', sku:'6D-TO2I-APZ9', name:'Yerba Mate Rosamonte 1kg',               avgSalePrice:24.32, costCAD:7.00,  fixedFBA:10.03 },
 ];
 
-const REAL_SKU_META = [
+const REAE�SKU_META = [
   {
     sku:'WR-7EP2-333F', name:'Knorr Caldo de Tomate 35.3 oz', asin:'B008OFGXEK',
     costUnit:16.50, fbaFee:9.36, refPct:0.15, stock:20, velocityDays:31,
@@ -507,7 +507,7 @@ const REAL_SKU_META = [
     sales:[
       {date:'Jun 09', price:24.98},{date:'Jun 09', price:24.98},{date:'Jun 09', price:25.98},
       {date:'Jun 10', price:24.79},{date:'Jun 10', price:24.00},{date:'Jun 12', price:24.00},
-      {date:'Jun 13', price:23.50},{date:'Jun 14', price:23.97},{date:'Jun 15', price:23.50},
+      {date:'Jun 13', price:23.50},{date:'Jun 13', price:23.97},{date:'Jun 15', price:23.50},
       {date:'Jun 16', price:23.50},
     ]
   },
@@ -739,7 +739,7 @@ function calcSKUStats(meta) {
 
 function renderSKUSummaryCards() {
   const container = $('skuSummaryCards');
-  container.innerHTML = REAL_SKU_META.map(meta => {
+  container.innerHTML = REAE�SKU_META.map(meta => {
     const s = calcSKUStats(meta);
     const roiColor = s.roi >= 50 ? '#16a34a' : s.roi >= 30 ? '#d97706' : '#dc2626';
     const stockBadge = meta.stock === 0
@@ -826,7 +826,7 @@ function renderPerSaleTables() {
 
 function renderPnLSection() {
   const TOTAL_REVENUE   = 1085.54;
-  const AMAZON_FEES     = 313.46;
+  const AMAS�O_FEES     = 313.46;
   const COGS_SOLD       = 328.82;
   const FBA_INBOUND     = 129.55;
   const PREP_COST       = 27.00;
@@ -900,18 +900,18 @@ function renderPnLSection() {
   });
 
   const rows = [
-    { cat:'Ingresos por Ventas',       val:TOTAL_REVENUE, note:'27 unidades vendidas', color:#3b82f6', sign:'+' },
+    { cat:'Ingresos por Ventas',       val:TOTAL_REVENUE, note:'27 unidades vendidas', color:'#3b82f6', sign:'+' },
     { cat:'Amazon Fees (Referral+FBA)',val:AMAZON_FEES,   note:'28.9% del ingreso - SP-API confirmado', color:'#dc2626', sign:'-' },
     { cat:'Costo de Producto (COGS)',  val:COGS_SOLD,     note:'Facturas La Molienda verificadas', color:'#f97316', sign:'-' },
-    { cat:'Software y Suscripciones',  val:SOFTWARE_REAL, note:'Mayo $102.92 + Junio $123.49', color:##64748b', sign:'-' },
+    { cat:'Software y Suscripciones',  val:SOFTWARE_REAL, note:'Mayo $102.92 + Junio $123.49', color:'#64748b', sign:'-' },
     { cat:'FBA Inbound (envio)',       val:FBA_INBOUND,   note:'5 envios: $17.08+$18.70+$32.85+$25.73+$35.19', color:'#eab308', sign:'-' },
     { cat:'Preparacion ($1/unidad)',   val:PREP_COST,     note:'27 unidades x $1', color:'#8b5cf6', sign:'-' },
   ];
   $('pnlCostTable').innerHTML =
-    '<thead><tr><th>Categoria</th><th style="text-align:right;">Monto (CAD)/th><th style="text-align:right;">% Ingreso</th><th>Detalle</th></tr></thead><tbody>' +
+    '<thead><tr><th>Categoria</th><th style="text-align:right;">Monto (CAD)</th><th style="text-align:right;">% Ingreso</th><th>Detalle</th></tr></thead><tbody>' +
     rows.map(r =>
       '<tr><td>' + r.cat + '</td>' +
-      '<td style="text-align:right;font-weight:700;color:' + (r.sign==='+'?'#16a34a':"#dc2626') + ';">' + r.sign + '$' + r.val.toFixed(2) + '</td>' +
+      '<td style="text-align:right;font-weight:700;color:' + (r.sign==='+'?'#16a34a':'#dc2626') + ';">' + r.sign + '$' + r.val.toFixed(2) + '</td>' +
       '<td style="text-align:right;color:#64748b;">' + (r.val/TOTAL_REVENUE*100).toFixed(1) + '%</td>' +
       '<td style="color:#64748b;font-size:11px;">' + r.note + '</td></tr>'
     ).join('') +
