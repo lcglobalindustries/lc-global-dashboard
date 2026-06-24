@@ -418,7 +418,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="section-title">&#127981; Inventario FBA &#8212; Snapshot Jun 23</div>
   <div class="card mb-20">
     <table>
-      <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</td><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
+      <thead><tr><th>SKU</th><th>Producto</th><th>ASIN</th><th>Disponibles</th><th>Reservado</th><th>Inbound</th><th>Total</th><th>Alerta</th></tr></thead>
       <tbody>
         <tr><td>WR-7EP2-333F</td><td>Knorr Caldo de Tomate 35.3 oz</td><td>B008OFGXEK</td><td><strong>20</strong></td><td>0</td><td>0</td><td>20</td><td><span class="badge b-gn">&#9989; STOCK OK</span></td></tr>
         <tr><td>6D-TO2I-APZ9</td><td>Yerba Mate Rosamonte 1kg</td><td>B002ZBBTLG</td><td><strong>0</strong></td><td>0</td><td>0</td><td>0</td><td><span class="badge b-rd">&#128680; AGOTADO &#8212; REPONER YA</span></td></tr>
@@ -437,7 +437,7 @@ tbody tr.best-day td:first-child { font-weight:700; }
   <div class="card mb-20"><div class="card-title">Desglose Completo de Costos</div><table class="pnl-cost-table" id="pnlCostTable"></table></div>
 
   <div class="section-title" style="color:#15803d;">&#128302; An&#225;lisis Real de Rentabilidad &#8212; Datos 100% Verificados</div>
-  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API !ƒ83; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
+  <div class="real-note">&#9989; <strong>Costos reales</strong> de facturas La Molienda &#183; <strong>Fees FBA confirmados</strong> SP-API &#183; <strong>Precios reales</strong> por orden &#183; <strong>+$3/unidad</strong> costos operativos</div>
   <div class="sku-cards-grid" id="skuSummaryCards"></div>
   <div class="charts-row-2 mb-20">
     <div class="chart-card"><h4>ROI Real por SKU</h4><div class="chart-wrap-tall"><canvas id="roiCompareChart"></canvas></div></div>
@@ -486,7 +486,7 @@ const SKUS = [
   { asin:'B002ZBBTLG', sku:'6D-TO2I-APZ9', name:'Yerba Mate Rosamonte 1kg',               avgSalePrice:24.32, costCAD:7.00,  fixedFBA:10.03 },
 ];
 
-const REAEÅSKU_META = [
+const REAL_SKU_META = [
   {
     sku:'WR-7EP2-333F', name:'Knorr Caldo de Tomate 35.3 oz', asin:'B008OFGXEK',
     costUnit:16.50, fbaFee:9.36, refPct:0.15, stock:20, velocityDays:31,
@@ -507,7 +507,7 @@ const REAEÅSKU_META = [
     sales:[
       {date:'Jun 09', price:24.98},{date:'Jun 09', price:24.98},{date:'Jun 09', price:25.98},
       {date:'Jun 10', price:24.79},{date:'Jun 10', price:24.00},{date:'Jun 12', price:24.00},
-      {date:'Jun 13', price:23.50},{date:'Jun 13', price:23.97},{date:'Jun 15', price:23.50},
+      {date:'Jun 13', price:23.50},{date:'Jun 14', price:23.97},{date:'Jun 15', price:23.50},
       {date:'Jun 16', price:23.50},
     ]
   },
@@ -739,7 +739,7 @@ function calcSKUStats(meta) {
 
 function renderSKUSummaryCards() {
   const container = $('skuSummaryCards');
-  container.innerHTML = REAEÅSKU_META.map(meta => {
+  container.innerHTML = REAL_SKU_META.map(meta => {
     const s = calcSKUStats(meta);
     const roiColor = s.roi >= 50 ? '#16a34a' : s.roi >= 30 ? '#d97706' : '#dc2626';
     const stockBadge = meta.stock === 0
@@ -826,7 +826,7 @@ function renderPerSaleTables() {
 
 function renderPnLSection() {
   const TOTAL_REVENUE   = 1085.54;
-  const AMASÎO_FEES     = 313.46;
+  const AMAZON_FEES     = 313.46;
   const COGS_SOLD       = 328.82;
   const FBA_INBOUND     = 129.55;
   const PREP_COST       = 27.00;
